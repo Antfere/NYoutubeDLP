@@ -1,5 +1,5 @@
 # NYoutubeDL
-**CircleCI:** [![CircleCI](https://circleci.com/gh/BrianAllred/NYoutubeDL.svg?style=svg)](https://circleci.com/gh/BrianAllred/NYoutubeDL)
+[![pipeline status](https://gitlab.com/BrianAllred/NYoutubeDL/badges/master/pipeline.svg)](https://gitlab.com/BrianAllred/NYoutubeDL/commits/master)
 
 A simple youtube-dl library for C#.
 
