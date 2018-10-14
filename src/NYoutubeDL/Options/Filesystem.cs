@@ -66,7 +66,7 @@ namespace NYoutubeDL.Options
 
         [Option] internal readonly BoolOption writeAnnotations = new BoolOption("--write-annotations");
 
-        [Option] internal readonly BoolOption writeDescription = new BoolOption("--write-desription");
+        [Option] internal readonly BoolOption writeDescription = new BoolOption("--write-description");
 
         [Option] internal readonly BoolOption writeInfoJson = new BoolOption("--write-info-json");
 
