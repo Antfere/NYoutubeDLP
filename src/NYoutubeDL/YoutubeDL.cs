@@ -70,10 +70,26 @@ namespace NYoutubeDL
         internal CancellationTokenSource stdOutputTokenSource;
 
         /// <summary>
+        ///     Cancellation token used to stop downloads.
+        /// </summary>
+        internal CancellationTokenSource downloadTokenSource;
+
+        /// <summary>
+        ///     Whether the client is currently downloading video info
+        /// </summary>
+        internal bool isGettingInfo;
+
+        /// <summary>
+        ///     Process ID of the youtube-dl process
+        /// </summary>
+        internal int downloadProcessID;
+
+        /// <summary>
         ///     Creates a new YoutubeDL client
         /// </summary>
         public YoutubeDL()
         {
+            downloadTokenSource = new CancellationTokenSource();
         }
 
         /// <summary>
@@ -82,7 +98,7 @@ namespace NYoutubeDL
         /// <param name="path">
         ///     Path of youtube-dl binary
         /// </param>
-        public YoutubeDL(string path)
+        public YoutubeDL(string path) : this()
         {
             this.YoutubeDlPath = path;
         }
@@ -100,21 +116,7 @@ namespace NYoutubeDL
         /// <summary>
         ///     Returns whether the download process is actively running
         /// </summary>
-        public bool ProcessRunning
-        {
-            get
-            {
-                try
-                {
-                    return !this.process.HasExited;
-                }
-                catch (Exception)
-                {
-                }
-
-                return false;
-            }
-        }
+        public bool IsDownloading { get; internal set; }
 
         /// <summary>
         ///     Gets the complete command that was run by Download().
@@ -145,7 +147,7 @@ namespace NYoutubeDL
         public async Task DownloadAsync()
         {
             await this.semaphore.WaitAsync();
-            await DownloadService.DownloadAsync(this);
+            await DownloadService.DownloadAsync(this, downloadTokenSource.Token);
             this.semaphore.Release();
         }
 
@@ -157,7 +159,7 @@ namespace NYoutubeDL
         public async Task DownloadAsync(string videoUrl)
         {
             await this.semaphore.WaitAsync();
-            await DownloadService.DownloadAsync(this, videoUrl);
+            await DownloadService.DownloadAsync(this, videoUrl, downloadTokenSource.Token);
             this.semaphore.Release();
         }
 
@@ -168,7 +170,7 @@ namespace NYoutubeDL
         public void Download()
         {
             this.semaphore.Wait();
-            DownloadService.Download(this);
+            DownloadService.Download(this, downloadTokenSource.Token);
             this.semaphore.Release();
         }
 
@@ -180,7 +182,7 @@ namespace NYoutubeDL
         public void Download(string videoUrl)
         {
             this.semaphore.Wait();
-            DownloadService.Download(this, videoUrl);
+            DownloadService.Download(this, videoUrl, downloadTokenSource.Token);
             this.semaphore.Release();
         }
 
@@ -193,7 +195,7 @@ namespace NYoutubeDL
         public async Task<DownloadInfo> GetDownloadInfoAsync()
         {
             await this.semaphore.WaitAsync();
-            DownloadInfo info = await InfoService.GetDownloadInfoAsync(this);
+            DownloadInfo info = await InfoService.GetDownloadInfoAsync(this, downloadTokenSource.Token);
             this.semaphore.Release();
             return info;
         }
@@ -210,7 +212,7 @@ namespace NYoutubeDL
         public async Task<DownloadInfo> GetDownloadInfoAsync(string url)
         {
             await this.semaphore.WaitAsync();
-            DownloadInfo info = await InfoService.GetDownloadInfoAsync(this, url);
+            DownloadInfo info = await InfoService.GetDownloadInfoAsync(this, url, downloadTokenSource.Token);
             this.semaphore.Release();
             return info;
         }
@@ -224,7 +226,7 @@ namespace NYoutubeDL
         public DownloadInfo GetDownloadInfo()
         {
             this.semaphore.Wait();
-            DownloadInfo info = InfoService.GetDownloadInfo(this);
+            DownloadInfo info = InfoService.GetDownloadInfo(this, downloadTokenSource.Token);
             this.semaphore.Release();
             return info;
         }
@@ -241,16 +243,60 @@ namespace NYoutubeDL
         public DownloadInfo GetDownloadInfo(string url)
         {
             this.semaphore.Wait();
-            DownloadInfo info = InfoService.GetDownloadInfo(this, url);
+            DownloadInfo info = InfoService.GetDownloadInfo(this, url, downloadTokenSource.Token);
             this.semaphore.Release();
             return info;
+        }
+
+        /// <summary>
+        ///     Prepares the arguments to pass into downloader
+        /// </summary>
+        /// <returns>
+        ///     The string of arguments built from the options
+        /// </returns>
+        public async Task<string> PrepareDownloadAsync()
+        {
+            await this.semaphore.WaitAsync();
+            string args = await PreparationService.PrepareDownloadAsync(this, downloadTokenSource.Token);
+            this.semaphore.Release();
+            return args;
+        }
+
+        /// <summary>
+        ///     Prepares the arguments to pass into downloader
+        /// </summary>
+        /// <returns>
+        ///     The string of arguments built from the options
+        /// </returns>
+        public string PrepareDownload()
+        {
+            this.semaphore.Wait();
+            string args = PreparationService.PrepareDownload(this, downloadTokenSource.Token);
+            this.semaphore.Release();
+            return args;
+        }
+
+        public void CancelDownload()
+        {
+            try
+            {
+                this.downloadTokenSource.Cancel();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"\n\n{ex}\n\n");
+            }
+            finally
+            {
+                this.downloadTokenSource = new CancellationTokenSource();
+            }
         }
 
         /// <summary>
         ///     Kills the process and associated threads.
         ///     We catch these exceptions in case the objects have already been disposed of.
         /// </summary>
-        public void KillProcess()
+        internal void KillStandardEventHandlers()
         {
             try
             {
@@ -271,32 +317,35 @@ namespace NYoutubeDL
             }
         }
 
-        /// <summary>
-        ///     Prepares the arguments to pass into downloader
-        /// </summary>
-        /// <returns>
-        ///     The string of arguments built from the options
-        /// </returns>
-        public async Task<string> PrepareDownloadAsync()
+        internal void StopProcess()
         {
-            await this.semaphore.WaitAsync();
-            string args = await PreparationService.PrepareDownloadAsync(this);
-            this.semaphore.Release();
-            return args;
-        }
+            try
+            {
+                if (this.process != null)
+                {
+                    if (!this.process.HasExited)
+                    {
+                        this.process.Kill();
+                    }
 
-        /// <summary>
-        ///     Prepares the arguments to pass into downloader
-        /// </summary>
-        /// <returns>
-        ///     The string of arguments built from the options
-        /// </returns>
-        public string PrepareDownload()
-        {
-            this.semaphore.Wait();
-            string args = PreparationService.PrepareDownload(this);
-            this.semaphore.Release();
-            return args;
+                    this.process.Dispose();
+                }
+            }
+            catch (Exception)
+            {
+                try
+                {
+                    Process processById = Process.GetProcessById(this.downloadProcessID);
+                    if (processById != null && processById.StartTime != null && processById.ProcessName.IndexOf("youtube-dl", StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        processById.Kill();
+                        processById.Dispose();
+                    }
+                }
+                catch (Exception)
+                {
+                }
+            }
         }
 
         /// <summary>

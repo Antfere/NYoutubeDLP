@@ -24,6 +24,7 @@ namespace NYoutubeDL.Services
 
     using System.Diagnostics;
     using System.IO;
+    using System.Threading;
     using System.Threading.Tasks;
     using Models;
 
@@ -40,14 +41,17 @@ namespace NYoutubeDL.Services
         /// <param name="ydl">
         ///     The client.
         /// </param>
+        /// <param name="cancellationToken">
+        ///     The cancellation token
+        /// </param>
         /// <returns>
         ///     The youtube-dl command that will be executed
         /// </returns>
-        internal static async Task<string> PrepareDownloadAsync(this YoutubeDL ydl)
+        internal static async Task<string> PrepareDownloadAsync(this YoutubeDL ydl, CancellationToken cancellationToken)
         {
             if (ydl.Info == null)
             {
-                ydl.Info = await InfoService.GetDownloadInfoAsync(ydl) ?? new DownloadInfo();
+                ydl.Info = await InfoService.GetDownloadInfoAsync(ydl, cancellationToken) ?? new DownloadInfo();
             }
 
             SetupPrepare(ydl);
@@ -61,14 +65,17 @@ namespace NYoutubeDL.Services
         /// <param name="ydl">
         ///     The client.
         /// </param>
+        /// <param name="cancellationToken">
+        ///     The cancellation token
+        /// </param>
         /// <returns>
         ///     The youtube-dl command that will be executed
         /// </returns>
-        internal static string PrepareDownload(this YoutubeDL ydl)
+        internal static string PrepareDownload(this YoutubeDL ydl, CancellationToken cancellationToken)
         {
             if (ydl.Info == null)
             {
-                ydl.Info = InfoService.GetDownloadInfo(ydl) ?? new DownloadInfo();
+                ydl.Info = InfoService.GetDownloadInfo(ydl, cancellationToken) ?? new DownloadInfo();
             }
 
             SetupPrepare(ydl);

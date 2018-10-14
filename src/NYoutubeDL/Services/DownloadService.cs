@@ -41,21 +41,42 @@ namespace NYoutubeDL.Services
         /// <param name="ydl">
         ///     The client
         /// </param>
-        internal static async Task DownloadAsync(this YoutubeDL ydl)
+        /// <param name="cancellationToken">
+        ///     The cancellation token
+        /// </param>
+        internal static async Task DownloadAsync(this YoutubeDL ydl, CancellationToken cancellationToken)
         {
+            cancellationToken.Register(() =>
+            {
+                Cancel(ydl);
+            });
+
+            if (!ydl.isGettingInfo)
+            {
+                ydl.IsDownloading = true;
+            }
+
             if (ydl.processStartInfo == null)
             {
-                await PreparationService.PrepareDownloadAsync(ydl);
+                ydl.isGettingInfo = true;
+                await PreparationService.PrepareDownloadAsync(ydl, cancellationToken);
 
                 if (ydl.processStartInfo == null)
                 {
                     throw new NullReferenceException();
                 }
+
+                ydl.isGettingInfo = false;
             }
 
-            SetupDownload(ydl);
+            SetupDownload(ydl, cancellationToken);
 
-            await ydl.process.WaitForExitAsync();
+            await ydl.process?.WaitForExitAsync(cancellationToken);
+            
+            if (!ydl.isGettingInfo)
+            {
+                ydl.IsDownloading = false;
+            }
         }
 
         /// <summary>
@@ -64,21 +85,42 @@ namespace NYoutubeDL.Services
         /// <param name="ydl">
         ///     The client
         /// </param>
-        internal static void Download(this YoutubeDL ydl)
+        /// <param name="cancellationToken">
+        ///     The cancellation token
+        /// </param>
+        internal static void Download(this YoutubeDL ydl, CancellationToken cancellationToken)
         {
+            cancellationToken.Register(() =>
+            {
+                Cancel(ydl);
+            });
+
+            if (!ydl.isGettingInfo)
+            {
+                ydl.IsDownloading = true;
+            }
+
             if (ydl.processStartInfo == null)
             {
-                PreparationService.PrepareDownload(ydl);
+                ydl.isGettingInfo = true;
+                PreparationService.PrepareDownload(ydl, cancellationToken);
 
                 if (ydl.processStartInfo == null)
                 {
                     throw new NullReferenceException();
                 }
+
+                ydl.isGettingInfo = false;
             }
 
-            SetupDownload(ydl);
+            SetupDownload(ydl, cancellationToken);
 
-            ydl.process.WaitForExit();
+            ydl.process?.WaitForExit();
+            
+            if (!ydl.isGettingInfo)
+            {
+                ydl.IsDownloading = false;
+            }
         }
 
         /// <summary>
@@ -90,10 +132,13 @@ namespace NYoutubeDL.Services
         /// <param name="url">
         ///     The video / playlist URL to download
         /// </param>
-        internal static async Task DownloadAsync(this YoutubeDL ydl, string url)
+        /// <param name="cancellationToken">
+        ///     The cancellation token
+        /// </param>
+        internal static async Task DownloadAsync(this YoutubeDL ydl, string url, CancellationToken cancellationToken)
         {
             ydl.VideoUrl = url;
-            await DownloadAsync(ydl);
+            await DownloadAsync(ydl, cancellationToken);
         }
 
         /// <summary>
@@ -105,20 +150,28 @@ namespace NYoutubeDL.Services
         /// <param name="url">
         ///     The video / playlist URL to download
         /// </param>
-        internal static void Download(this YoutubeDL ydl, string url)
+        /// <param name="cancellationToken">
+        ///     The cancellation token
+        /// </param>
+        internal static void Download(this YoutubeDL ydl, string url, CancellationToken cancellationToken)
         {
             ydl.VideoUrl = url;
-            Download(ydl);
+            Download(ydl, cancellationToken);
         }
 
-        private static void SetupDownload(YoutubeDL ydl)
+        private static void SetupDownload(YoutubeDL ydl, CancellationToken cancellationToken)
         {
+            if (cancellationToken.IsCancellationRequested)
+            {
+                return;
+            }
+
             ydl.process = new Process { StartInfo = ydl.processStartInfo, EnableRaisingEvents = true };
 
             ydl.stdOutputTokenSource = new CancellationTokenSource();
             ydl.stdErrorTokenSource = new CancellationTokenSource();
 
-            ydl.process.Exited += (sender, args) => ydl.KillProcess();
+            ydl.process.Exited += (sender, args) => ydl.KillStandardEventHandlers();
 
             // Note that synchronous calls are needed in order to process the output line by line.
             // Asynchronous output reading results in batches of output lines coming in all at once.
@@ -134,6 +187,24 @@ namespace NYoutubeDL.Services
             }
 
             ydl.process.Start();
+            ydl.downloadProcessID = ydl.process.Id;
+        }
+
+        private static void Cancel(YoutubeDL ydl, int count = 0)
+        {
+            try
+            {
+                ydl.StopProcess();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"\n\n{ex}\n\n");
+            }
+            finally
+            {
+                ydl.isGettingInfo = false;
+                ydl.IsDownloading = false;
+            }
         }
     }
 }

@@ -37,15 +37,18 @@ namespace NYoutubeDL.Services
     internal static class InfoService
     {
         /// <summary>
-        /// Asynchronously retrieve video / playlist information
+        ///     Asynchronously retrieve video / playlist information
         /// </summary>
         /// <param name="ydl">
-        /// The client
+        ///     The client
+        /// </param>
+        /// <param name="cancellationToken">
+        ///     The cancellation token
         /// </param>
         /// <returns>
-        /// An object containing the download information
+        ///     An object containing the download information
         /// </returns>
-        internal static async Task<DownloadInfo> GetDownloadInfoAsync(this YoutubeDL ydl)
+        internal static async Task<DownloadInfo> GetDownloadInfoAsync(this YoutubeDL ydl, CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(ydl.VideoUrl))
             {
@@ -69,7 +72,10 @@ namespace NYoutubeDL.Services
             // Local function for easier event handling
             void ParseInfoJson(object sender, string output)
             {
-                infos.Add(DownloadInfo.CreateDownloadInfo(output));
+                if (!cancellationToken.IsCancellationRequested)
+                {
+                    infos.Add(DownloadInfo.CreateDownloadInfo(output));
+                }
             }
 
             ydl.StandardOutputEvent += ParseInfoJson;
@@ -78,13 +84,18 @@ namespace NYoutubeDL.Services
             PreparationService.SetupPrepare(ydl);
 
             // Download the info
-            await DownloadService.DownloadAsync(ydl);
+            await DownloadService.DownloadAsync(ydl, cancellationToken);
 
-            while (ydl.ProcessRunning || infos.Count == 0)
+            while ((!ydl.process.HasExited || infos.Count == 0) && !cancellationToken.IsCancellationRequested)
             {
                 await Task.Delay(1);
             }
 
+            if  (cancellationToken.IsCancellationRequested)
+            {
+                return null;
+            }
+
             // Set the info object
             ydl.Info = infos.Count > 1 ? new MultiDownloadInfo(infos) : infos[0];
 
@@ -107,15 +118,18 @@ namespace NYoutubeDL.Services
         }
 
         /// <summary>
-        /// Synchronously retrieve video / playlist information
+        ///     Synchronously retrieve video / playlist information
         /// </summary>
         /// <param name="ydl">
-        /// The client
+        ///     The client
+        /// </param>
+        /// <param name="cancellationToken">
+        ///     The cancellation token
         /// </param>
         /// <returns>
-        /// An object containing the download information
+        ///     An object containing the download information
         /// </returns>
-        internal static DownloadInfo GetDownloadInfo(this YoutubeDL ydl)
+        internal static DownloadInfo GetDownloadInfo(this YoutubeDL ydl, CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(ydl.VideoUrl))
             {
@@ -148,11 +162,16 @@ namespace NYoutubeDL.Services
             PreparationService.SetupPrepare(ydl);
 
             // Download the info
-            DownloadService.Download(ydl);
+            DownloadService.Download(ydl, cancellationToken);
 
-            while (ydl.ProcessRunning || infos.Count == 0)
+            while ((!ydl.process.HasExited || infos.Count == 0) && !cancellationToken.IsCancellationRequested)
             {
                 Thread.Sleep(1);
+            }
+
+            if (cancellationToken.IsCancellationRequested)
+            {
+                return null;
             }
 
             // Set the info object
@@ -177,40 +196,46 @@ namespace NYoutubeDL.Services
         }
 
         /// <summary>
-        /// Asynchronously retrieve video / playlist information
+        ///     Asynchronously retrieve video / playlist information
         /// </summary>
         /// <param name="ydl">
-        /// The client
+        ///     The client
         /// </param>
         /// <param name="url">
-        /// URL of video / playlist
+        ///     URL of video / playlist
+        /// </param>
+        /// <param name="cancellationToken">
+        ///     The cancellation token
         /// </param>
         /// <returns>
-        /// An object containing the download information
+        ///     An object containing the download information
         /// </returns>
-        internal static async Task<DownloadInfo> GetDownloadInfoAsync(this YoutubeDL ydl, string url)
+        internal static async Task<DownloadInfo> GetDownloadInfoAsync(this YoutubeDL ydl, string url, CancellationToken cancellationToken)
         {
             ydl.VideoUrl = url;
-            await GetDownloadInfoAsync(ydl);
+            await GetDownloadInfoAsync(ydl, cancellationToken);
             return ydl.Info;
         }
 
         /// <summary>
-        /// Synchronously retrieve video / playlist information
+        ///     Synchronously retrieve video / playlist information
         /// </summary>
         /// <param name="ydl">
-        /// The client
+        ///     The client
         /// </param>
         /// <param name="url">
-        /// URL of video / playlist
+        ///     URL of video / playlist
+        /// </param>
+        /// <param name="cancellationToken">
+        ///     The cancellation token
         /// </param>
         /// <returns>
-        /// An object containing the download information
+        ///     An object containing the download information
         /// </returns>
-        internal static DownloadInfo GetDownloadInfo(this YoutubeDL ydl, string url)
+        internal static DownloadInfo GetDownloadInfo(this YoutubeDL ydl, string url, CancellationToken cancellationToken)
         {
             ydl.VideoUrl = url;
-            return GetDownloadInfo(ydl);
+            return GetDownloadInfo(ydl, cancellationToken);
         }
 
         private static void SetInfoOptions(YoutubeDL ydl)
