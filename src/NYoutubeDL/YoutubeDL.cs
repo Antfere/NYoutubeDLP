@@ -42,6 +42,9 @@ namespace NYoutubeDL
     /// </summary>
     public class YoutubeDL
     {
+        /// <summary>
+        ///     The semaphore
+        /// </summary>
         private readonly SemaphoreSlim semaphore = new SemaphoreSlim(1, 1);
 
         /// <summary>
