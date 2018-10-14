@@ -77,7 +77,7 @@ namespace NYoutubeDL.Models
 
         internal override void ParseOutput(object sender, string output)
         {
-            if (output.Contains(VIDEOSTRING) && output.Contains(OFSTRING))
+            if (output.Contains(DOWNLOADSTRING) && output.Contains(VIDEOSTRING) && output.Contains(OFSTRING))
             {
                 Regex regex = new Regex(".*?(\\d+)", RegexOptions.IgnoreCase | RegexOptions.Singleline);
                 Match match = regex.Match(output);

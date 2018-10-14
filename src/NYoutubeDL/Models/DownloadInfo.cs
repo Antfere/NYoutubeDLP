@@ -46,6 +46,8 @@ namespace NYoutubeDL.Models
 
         protected const string VIDEOSTRING = "video";
 
+        protected const string DOWNLOADSTRING = "[download]";
+
         private string downloadRate;
 
         private string eta;
