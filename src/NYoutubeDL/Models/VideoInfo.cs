@@ -52,7 +52,7 @@ namespace NYoutubeDL.Models
 
         public string description { get; set; }
 
-        public int? dislike_count { get; set; }
+        public long? dislike_count { get; set; }
 
         public string display_id { get; set; }
 
@@ -86,7 +86,7 @@ namespace NYoutubeDL.Models
 
         public string license { get; set; }
 
-        public int? like_count { get; set; }
+        public long? like_count { get; set; }
 
         public int? n_entries { get; set; }
 
@@ -134,7 +134,7 @@ namespace NYoutubeDL.Models
 
         public string vcodec { get; set; }
 
-        public int? view_count { get; set; }
+        public long? view_count { get; set; }
 
         public string webpage_url { get; set; }
 

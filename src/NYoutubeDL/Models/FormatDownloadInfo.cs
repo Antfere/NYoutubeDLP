@@ -55,7 +55,7 @@ namespace NYoutubeDL.Models
 
         public string Ext { get; }
 
-        public int? Filesize { get; }
+        public long? Filesize { get; }
 
         public string Format { get; }
 

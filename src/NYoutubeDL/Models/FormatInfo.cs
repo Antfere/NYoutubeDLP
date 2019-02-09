@@ -36,7 +36,7 @@ namespace NYoutubeDL.Models
 
         public string ext { get; set; }
 
-        public int? filesize { get; set; }
+        public long? filesize { get; set; }
 
         public string format { get; set; }
 
