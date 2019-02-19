@@ -24,6 +24,7 @@ namespace NYoutubeDL.Sample
 
     using System;
     using Helpers;
+    using NYoutubeDL.Models;
     using Options;
 
     #endregion
@@ -45,6 +46,27 @@ namespace NYoutubeDL.Sample
 
             ydlClient.StandardErrorEvent += (sender, error) => Console.WriteLine(error);
             ydlClient.StandardOutputEvent += (sender, output) => Console.WriteLine(output);
+            
+            ydlClient.Info.PropertyChanged += (sender, e) => 
+            {
+                DownloadInfo info = (DownloadInfo) sender;
+                var propertyValue = info.GetType().GetProperty(e.PropertyName).GetValue(info);
+
+                switch (e.PropertyName)
+                {
+                    case "VideoProgress":
+                        Console.WriteLine($" > Video Progress: {propertyValue}%");
+                        break;
+                    case "Status":
+                        Console.WriteLine($" > Status: {propertyValue}");
+                        break;
+                    case "DownloadRate":
+                        Console.WriteLine($" > Download Rate: {propertyValue}");
+                        break;
+                    default:
+                        break;
+                }
+            };
 
             ydlClient.Download("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
         }

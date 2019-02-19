@@ -20,6 +20,8 @@
 
 namespace NYoutubeDL.Services
 {
+    using System;
+    using System.ComponentModel;
     #region Using
 
     using System.Diagnostics;
@@ -49,9 +51,25 @@ namespace NYoutubeDL.Services
         /// </returns>
         internal static async Task<string> PrepareDownloadAsync(this YoutubeDL ydl, CancellationToken cancellationToken)
         {
-            if (ydl.Info == null)
+            if (!ydl.Info.set)
             {
+                Delegate[] originalDelegates = null;
+                if (ydl.Info.propertyChangedEvent != null)
+                {
+                    originalDelegates = ydl.Info.propertyChangedEvent.GetInvocationList();
+                }
+
                 ydl.Info = await InfoService.GetDownloadInfoAsync(ydl, cancellationToken) ?? new DownloadInfo();
+                
+                if (originalDelegates != null)
+                {
+                    foreach (Delegate del in originalDelegates)
+                    {
+                        ydl.Info.PropertyChanged += (PropertyChangedEventHandler)del;
+                    }
+                }
+
+                ydl.Info.set = true;
             }
 
             SetupPrepare(ydl);
@@ -73,9 +91,25 @@ namespace NYoutubeDL.Services
         /// </returns>
         internal static string PrepareDownload(this YoutubeDL ydl, CancellationToken cancellationToken)
         {
-            if (ydl.Info == null)
+            if (!ydl.Info.set)
             {
+                Delegate[] originalDelegates = null;
+                if (ydl.Info.propertyChangedEvent != null)
+                {
+                    originalDelegates = ydl.Info.propertyChangedEvent.GetInvocationList();
+                }
+
                 ydl.Info = InfoService.GetDownloadInfo(ydl, cancellationToken) ?? new DownloadInfo();
+
+                if (originalDelegates != null)
+                {
+                    foreach (Delegate del in originalDelegates)
+                    {
+                        ydl.Info.PropertyChanged += (PropertyChangedEventHandler)del;
+                    }
+                }
+                
+                ydl.Info.set = true;
             }
 
             SetupPrepare(ydl);

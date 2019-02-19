@@ -48,6 +48,8 @@ namespace NYoutubeDL.Models
 
         protected const string DOWNLOADSTRING = "[download]";
 
+        internal bool set = false;
+
         private string downloadRate;
 
         private string eta;

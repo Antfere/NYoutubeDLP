@@ -34,10 +34,16 @@ namespace NYoutubeDL.Helpers
     /// </summary>
     public abstract class NotifyPropertyChangedEx : INotifyPropertyChanged
     {
+        internal PropertyChangedEventHandler propertyChangedEvent;
+
         /// <summary>
         ///     Fires when property changes
         /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged
+        {
+            add => this.propertyChangedEvent += value;
+            remove => this.propertyChangedEvent -= value;
+        }
 
         /// <summary>
         ///     Fires the changed event whenever a property changes
@@ -45,7 +51,7 @@ namespace NYoutubeDL.Helpers
         /// <param name="propertyName"></param>
         public virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            this.propertyChangedEvent?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         /// <summary>

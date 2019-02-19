@@ -180,7 +180,7 @@ namespace NYoutubeDL.Services
             ThreadPool.QueueUserWorkItem(ydl.StandardOutput, ydl.stdOutputTokenSource.Token);
             ThreadPool.QueueUserWorkItem(ydl.StandardError, ydl.stdErrorTokenSource.Token);
 
-            if (ydl.Info != null)
+            if (ydl.Info.set)
             {
                 ydl.StandardOutputEvent += (sender, output) => ydl.Info.ParseOutput(sender, output.Trim());
                 ydl.StandardErrorEvent += (sender, output) => ydl.Info.ParseError(sender, output.Trim());

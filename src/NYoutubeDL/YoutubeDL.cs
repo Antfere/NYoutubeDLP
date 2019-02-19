@@ -106,7 +106,7 @@ namespace NYoutubeDL
         /// <summary>
         ///     Information about the download
         /// </summary>
-        public DownloadInfo Info { get; internal set; }
+        public DownloadInfo Info { get; internal set; } = new DownloadInfo();
 
         /// <summary>
         ///     The options to pass to youtube-dl
