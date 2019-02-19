@@ -9,7 +9,7 @@
     <Product />
     <Description>A simple youtube-dl library for C#.</Description>
     <Copyright>Copyright Brian Allred 2018</Copyright>
-    <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>http://gitlab.com/brianallred/nyoutubedl</PackageProjectUrl>
     <PackageTags>youtube-dl</PackageTags>
     <NeutralLanguage></NeutralLanguage>
