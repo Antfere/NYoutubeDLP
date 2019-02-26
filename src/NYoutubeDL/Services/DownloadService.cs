@@ -76,6 +76,7 @@ namespace NYoutubeDL.Services
             if (!ydl.isGettingInfo)
             {
                 ydl.IsDownloading = false;
+                ydl.processStartInfo = null;
             }
         }
 
@@ -120,6 +121,7 @@ namespace NYoutubeDL.Services
             if (!ydl.isGettingInfo)
             {
                 ydl.IsDownloading = false;
+                ydl.processStartInfo = null;
             }
         }
 
