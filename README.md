@@ -10,11 +10,23 @@ See the [main page](https://rg3.github.io/youtube-dl/) for youtube-dl for more i
 
 ### Getting the package
 
-* Search for `NYoutubeDL` in you project's Nuget Manager and click install.
+#### Visual Studio
 
-* In the Nuget package manager console, run
+* Search for `NYoutubeDL` in your project's NuGet Manager and click install.
+  
+Or
+
+* In the NuGet package manager console, run
 
         PM> Install-Package NYoutubeDL
+
+#### DotNet Core
+
+* In a terminal in your project's folder, run
+
+        dotnet add package NYoutubeDL
+
+#### Alternatively
 
 * Manually [download](https://www.nuget.org/packages/NYoutubeDL/) nupkg from NuGet Gallery.
 
@@ -28,12 +40,12 @@ See the [documentation](https://github.com/rg3/youtube-dl/blob/master/README.md#
 
 2. Options are grouped according to the youtube-dl documentation:
 
-        youtubeDl.Options.FileSystem.Output = "/path/to/downloads/video.mp4";
-        youtubeDl.Options.PostProcessing.ExtractAudio = true;
+        youtubeDl.Options.FilesystemOptions.Output = "/path/to/downloads/video.mp4";
+        youtubeDl.Options.PostProcessingOptions.ExtractAudio = true;
         youtubeDl.VideoUrl = "http://www.somevideosite.com/videoUrl";
 
         // Or update the binary
-        youtubeDl.Options.General.Update = true;
+        youtubeDl.Options.GeneralOptions.Update = true;
 
         // Optional, required if binary is not in $PATH
         youtubeDl.YoutubeDlPath = "/path/to/youtube-dl";
