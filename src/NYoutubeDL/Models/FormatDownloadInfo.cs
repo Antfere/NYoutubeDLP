@@ -63,7 +63,7 @@ namespace NYoutubeDL.Models
 
         public string FormatNote { get; }
 
-        public int? Fps { get; }
+        public double? Fps { get; }
 
         public int? Height { get; }
 

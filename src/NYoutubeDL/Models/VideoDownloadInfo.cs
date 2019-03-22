@@ -122,7 +122,7 @@ namespace NYoutubeDL.Models
 
         public string DisplayId { get; }
 
-        public int? Duration { get; }
+        public double? Duration { get; }
 
         public string Ext { get; set; }
 
@@ -136,7 +136,7 @@ namespace NYoutubeDL.Models
 
         public List<FormatDownloadInfo> Formats { get; } = new List<FormatDownloadInfo>();
 
-        public int? Fps { get; }
+        public double? Fps { get; }
 
         public int? Height { get; }
 

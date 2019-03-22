@@ -56,7 +56,7 @@ namespace NYoutubeDL.Models
 
         public string display_id { get; set; }
 
-        public int? duration { get; set; }
+        public double? duration { get; set; }
 
         public object end_time { get; set; }
 
@@ -74,7 +74,7 @@ namespace NYoutubeDL.Models
 
         public List<FormatInfo> formats { get; set; }
 
-        public int? fps { get; set; }
+        public double? fps { get; set; }
 
         public int? height { get; set; }
 

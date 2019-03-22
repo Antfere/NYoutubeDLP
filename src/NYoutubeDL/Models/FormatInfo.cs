@@ -44,7 +44,7 @@ namespace NYoutubeDL.Models
 
         public string format_note { get; set; }
 
-        public int? fps { get; set; }
+        public double? fps { get; set; }
 
         public int? height { get; set; }
 
