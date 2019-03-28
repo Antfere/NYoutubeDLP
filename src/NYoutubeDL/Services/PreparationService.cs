@@ -60,7 +60,7 @@ namespace NYoutubeDL.Services
                 }
 
                 ydl.Info = await InfoService.GetDownloadInfoAsync(ydl, cancellationToken) ?? new DownloadInfo();
-                
+
                 if (originalDelegates != null)
                 {
                     foreach (Delegate del in originalDelegates)
@@ -108,7 +108,7 @@ namespace NYoutubeDL.Services
                         ydl.Info.PropertyChanged += (PropertyChangedEventHandler)del;
                     }
                 }
-                
+
                 ydl.Info.set = true;
             }
 
@@ -136,6 +136,12 @@ namespace NYoutubeDL.Services
                 RedirectStandardOutput = true,
                 UseShellExecute = false
             };
+
+            if (!string.IsNullOrWhiteSpace(ydl.PythonPath))
+            {
+                ydl.processStartInfo.Arguments = ydl.YoutubeDlPath + " " + ydl.processStartInfo.Arguments;
+                ydl.processStartInfo.FileName = ydl.PythonPath;
+            }
 
             if (string.IsNullOrWhiteSpace(ydl.processStartInfo.FileName))
             {

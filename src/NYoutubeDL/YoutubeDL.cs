@@ -141,6 +141,11 @@ namespace NYoutubeDL
         public bool RetrieveAllInfo { get; set; }
 
         /// <summary>
+        ///     Path to Python binary. Used in server scenarios.
+        /// </summary>
+        public string PythonPath { get; set; }
+
+        /// <summary>
         ///     Convert class into parameters to pass to youtube-dl process, then create and run process.
         ///     Also handle output from process.
         /// </summary>
@@ -282,7 +287,7 @@ namespace NYoutubeDL
             {
                 this.downloadTokenSource.Cancel();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine($"\n\n{ex}\n\n");
             }
@@ -356,7 +361,7 @@ namespace NYoutubeDL
         /// </param>
         internal void StandardError(object tokenObj)
         {
-            CancellationToken token = (CancellationToken) tokenObj;
+            CancellationToken token = (CancellationToken)tokenObj;
 
             while (!token.IsCancellationRequested)
             {
@@ -390,7 +395,7 @@ namespace NYoutubeDL
         /// </param>
         internal void StandardOutput(object tokenObj)
         {
-            CancellationToken token = (CancellationToken) tokenObj;
+            CancellationToken token = (CancellationToken)tokenObj;
 
             while (!token.IsCancellationRequested)
             {
