@@ -80,6 +80,16 @@ See the [documentation](https://github.com/rg3/youtube-dl/blob/master/README.md#
         // Or provide video url
         youtubeDl.Download("http://videosite.com/videoUrl");
 
+### Workaround for IIS
+
+There is a weird permissions issue that ocurrs when invoking youtube-dl from an ASP.NET/IIS process. In this case, perform the following steps
+
+1. Install Python on the server.
+
+2. Download and place the Python version of youtube-dl (not the executable binary) somewhere on the server. This can be found [here](https://yt-dl.org/downloads/latest/youtube-dl).
+
+3. When creating the YoutubeDL client object, set the `PythonPath` property to the path of the Python executable binary and the `YoutubeDlPath` to the path of the python version of youtube-dl.
+
 ## Reporting issues
 
 While both youtube-dl itself and this library support many different services, my personal use centers around Youtube. If you find any bugs using this library with other services, feel free to raise an issue. **Please provide a specific link/URL, if possible.**
