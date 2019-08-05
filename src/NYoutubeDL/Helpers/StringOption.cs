@@ -18,6 +18,8 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
+using System.Linq;
+
 namespace NYoutubeDL.Helpers
 {
     [Option]
@@ -31,7 +33,12 @@ namespace NYoutubeDL.Helpers
         {
             if (!string.IsNullOrEmpty(this.Value))
             {
-                return this.ParamString + " " + this.Value;
+                if (this.Value.Any(c => char.IsWhiteSpace(c)))
+                {
+                    return $"{this.ParamString} \"{this.Value}\"";
+                }
+                
+                return $"{this.ParamString} {this.Value}";
             }
 
             return string.Empty;

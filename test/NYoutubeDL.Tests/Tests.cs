@@ -187,5 +187,16 @@ namespace NYoutubeDL.Tests
 
             Assert.True(ydlClient.PrepareDownload().Contains(usernameStringOption));
         }
+
+        [Fact]
+        public void TestStringOptionWithWhiteSpace()
+        {
+            YoutubeDL ydlClient = new YoutubeDL();
+            const string ffmpegLocationOption = " --ffmpeg-location \"test location\" ";
+
+            ydlClient.Options.PostProcessingOptions.FfmpegLocation = "test location";
+
+            Assert.True(ydlClient.PrepareDownload().Contains(ffmpegLocationOption));
+        }
     }
 }
