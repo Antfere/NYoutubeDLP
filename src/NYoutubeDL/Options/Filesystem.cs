@@ -240,21 +240,5 @@ namespace NYoutubeDL.Options
             get => this.writeInfoJson.Value ?? false;
             set => this.SetField(ref this.writeInfoJson.Value, value);
         }
-
-        /// <summary>
-        ///     Retrieves the options from this option section
-        /// </summary>
-        /// <returns>
-        ///     The parameterized string of the options in this section
-        /// </returns>
-        public override string ToCliParameters()
-        {
-            if (this.output?.Value != null && this.output.Value.Any(char.IsWhiteSpace))
-            {
-                this.output.Value = $"\"{this.output.Value}\"";
-            }
-
-            return base.ToCliParameters();
-        }
     }
 }
