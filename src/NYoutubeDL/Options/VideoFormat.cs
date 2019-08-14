@@ -117,11 +117,10 @@ namespace NYoutubeDL.Options
 
         public override string ToCliParameters()
         {
-            // Set format to undefined if formatAdvanced has a valid value,
-            // then return the parameters.
+            // Set format to null if formatAdvanced has a valid value
             if (!string.IsNullOrWhiteSpace(this.formatAdvanced.Value))
             {
-                this.format.Value = (int) Enums.VideoFormat.undefined;
+                this.format.Value = null;
             }
 
             return base.ToCliParameters();
