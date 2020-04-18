@@ -372,7 +372,10 @@ namespace NYoutubeDL
                         string error;
                         if (!string.IsNullOrEmpty(error = this.process.StandardError.ReadLine()))
                         {
-                            this.StandardErrorEvent?.Invoke(this, error);
+                            if (!error.Equals("null", StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                this.StandardErrorEvent?.Invoke(this, error);
+                            }
                         }
                     }
                 }
@@ -406,7 +409,10 @@ namespace NYoutubeDL
                         string output;
                         if (!string.IsNullOrEmpty(output = this.process.StandardOutput.ReadLine()))
                         {
-                            this.stdOutputEvent?.Invoke(this, output);
+                            if (!output.Equals("null", StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                this.stdOutputEvent?.Invoke(this, output);
+                            }
                         }
                     }
                 }
