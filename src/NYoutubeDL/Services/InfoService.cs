@@ -259,6 +259,10 @@ namespace NYoutubeDL.Services
                     NetRc = ydl.Options.AuthenticationOptions.NetRc,
                     VideoPassword = ydl.Options.AuthenticationOptions.VideoPassword,
                     TwoFactor = ydl.Options.AuthenticationOptions.TwoFactor
+                },
+                VideoFormatOptions = {
+                    Format = ydl.Options.VideoFormatOptions.Format,
+                    FormatAdvanced = ydl.Options.VideoFormatOptions.FormatAdvanced
                 }
             };
 
