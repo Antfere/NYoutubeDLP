@@ -26,6 +26,7 @@ namespace NYoutubeDL.Services
 
     using System.Diagnostics;
     using System.IO;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using Models;
@@ -127,7 +128,8 @@ namespace NYoutubeDL.Services
         /// </param>
         internal static void SetupPrepare(YoutubeDL ydl)
         {
-            string arguments = ydl.Options.ToCliParameters() + " " + ydl.VideoUrl;
+            string urls = string.IsNullOrWhiteSpace(ydl.VideoUrl) ? string.Empty : string.Join(" ", ydl.VideoUrl.Split(null).Select(url => $"\"{url}\""));
+            string arguments = ydl.Options.ToCliParameters() + " " + urls;
 
             ydl.processStartInfo = new ProcessStartInfo
             {

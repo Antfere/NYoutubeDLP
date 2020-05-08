@@ -27,6 +27,7 @@ namespace NYoutubeDL.Services
     using System.Threading;
     using System.Threading.Tasks;
     using Models;
+    using NYoutubeDL.Helpers;
     using Options;
 
     #endregion
@@ -260,11 +261,16 @@ namespace NYoutubeDL.Services
                     VideoPassword = ydl.Options.AuthenticationOptions.VideoPassword,
                     TwoFactor = ydl.Options.AuthenticationOptions.TwoFactor
                 },
-                VideoFormatOptions = {
-                    Format = ydl.Options.VideoFormatOptions.Format,
+                VideoFormatOptions = 
+                {
                     FormatAdvanced = ydl.Options.VideoFormatOptions.FormatAdvanced
                 }
             };
+
+            if (ydl.Options.VideoFormatOptions.Format != Enums.VideoFormat.undefined)
+            {
+                infoOptions.VideoFormatOptions.Format = ydl.Options.VideoFormatOptions.Format;
+            }
 
             ydl.Options = infoOptions;
         }
