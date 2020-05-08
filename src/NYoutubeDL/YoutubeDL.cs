@@ -23,6 +23,7 @@ namespace NYoutubeDL
     #region Using
 
     using System;
+    using System.ComponentModel;
     using System.Diagnostics;
     using System.IO;
     using System.Threading;
@@ -423,6 +424,13 @@ namespace NYoutubeDL
         {
             add => this.stdOutputEvent += value;
             remove => this.stdOutputEvent -= value;
+        }
+
+        public event PropertyChangedEventHandler InfoChangedEvent;
+
+        internal void OnInfoChangedEvent(object sender, PropertyChangedEventArgs args)
+        {
+            this.InfoChangedEvent?.Invoke(sender, args);
         }
     }
 }

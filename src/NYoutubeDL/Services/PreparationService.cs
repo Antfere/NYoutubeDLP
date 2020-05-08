@@ -70,6 +70,7 @@ namespace NYoutubeDL.Services
                 }
 
                 ydl.Info.set = true;
+                ydl.Info.PropertyChanged += ydl.OnInfoChangedEvent;
             }
 
             SetupPrepare(ydl);
@@ -110,6 +111,7 @@ namespace NYoutubeDL.Services
                 }
 
                 ydl.Info.set = true;
+                ydl.Info.PropertyChanged += ydl.OnInfoChangedEvent;
             }
 
             SetupPrepare(ydl);

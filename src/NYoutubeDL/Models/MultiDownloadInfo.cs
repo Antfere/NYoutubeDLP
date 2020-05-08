@@ -108,6 +108,8 @@ namespace NYoutubeDL.Models
             {
                 this.currentVideo?.ParseOutput(sender, output);
             }
+
+            base.ParseOutput(sender, output);
         }
     }
 }
