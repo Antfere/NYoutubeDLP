@@ -1,4 +1,4 @@
-﻿// Copyright 2020 Brian Allred
+// Copyright 2020 Brian Allred
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to
@@ -264,6 +264,10 @@ namespace NYoutubeDL.Services
                 VideoFormatOptions = 
                 {
                     FormatAdvanced = ydl.Options.VideoFormatOptions.FormatAdvanced
+                },
+                WorkaroundsOptions =
+                {
+                    UserAgent = ydl.Options.WorkaroundsOptions.UserAgent
                 }
             };
 
