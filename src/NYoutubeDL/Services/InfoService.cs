@@ -92,7 +92,7 @@ namespace NYoutubeDL.Services
                 await Task.Delay(1);
             }
 
-            if  (cancellationToken.IsCancellationRequested)
+            if (cancellationToken.IsCancellationRequested)
             {
                 return null;
             }
@@ -251,7 +251,7 @@ namespace NYoutubeDL.Services
                 GeneralOptions =
                 {
                     FlatPlaylist = !ydl.RetrieveAllInfo,
-                    IgnoreErrors = true
+                    IgnoreErrors = true,
                 },
                 AuthenticationOptions =
                 {
@@ -261,13 +261,17 @@ namespace NYoutubeDL.Services
                     VideoPassword = ydl.Options.AuthenticationOptions.VideoPassword,
                     TwoFactor = ydl.Options.AuthenticationOptions.TwoFactor
                 },
-                VideoFormatOptions = 
+                VideoFormatOptions =
                 {
                     FormatAdvanced = ydl.Options.VideoFormatOptions.FormatAdvanced
                 },
                 WorkaroundsOptions =
                 {
                     UserAgent = ydl.Options.WorkaroundsOptions.UserAgent
+                },
+                VideoSelectionOptions =
+                {
+                    NoPlaylist = ydl.Options.VideoSelectionOptions.NoPlaylist
                 }
             };
 
