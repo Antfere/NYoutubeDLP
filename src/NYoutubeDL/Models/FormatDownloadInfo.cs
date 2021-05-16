@@ -45,7 +45,7 @@ namespace NYoutubeDL.Models
             this.Width = info.width;
         }
 
-        public int? Abr { get; }
+        public float? Abr { get; }
 
         public string Acodec { get; }
 
