@@ -197,5 +197,16 @@ namespace NYoutubeDL.Tests
 
             Assert.Contains(ffmpegLocationOption, ydlClient.PrepareDownload());
         }
+
+        [Fact]
+        public void TestVideoProgress()
+        {
+            YoutubeDL youtubeDl = new YoutubeDL();
+            youtubeDl.VideoUrl = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+
+            youtubeDl.Download();
+
+            Assert.NotNull(youtubeDl.Info);
+        }
     }
 }

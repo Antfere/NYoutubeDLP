@@ -58,7 +58,7 @@ namespace NYoutubeDL.Models
 
         private string title;
 
-        private int videoProgress;
+        private double videoProgress;
 
         private string videoSize;
 
@@ -118,7 +118,7 @@ namespace NYoutubeDL.Models
         /// <summary>
         ///     The current download progresss
         /// </summary>
-        public int VideoProgress
+        public double VideoProgress
         {
             get => this.videoProgress;
             set
@@ -212,8 +212,8 @@ namespace NYoutubeDL.Models
                 if (output.Contains("%"))
                 {
                     int progressIndex = output.LastIndexOf(' ', output.IndexOf('%')) + 1;
-                    string progressString = output.Substring(progressIndex, output.IndexOf('%') - progressIndex);
-                    this.VideoProgress = (int) Math.Round(double.Parse(progressString));
+                    string progressString = output.Substring(progressIndex, output.IndexOf('%') - progressIndex).Replace('.', ',');
+                    this.VideoProgress = double.Parse(progressString);
 
                     int sizeIndex = output.LastIndexOf(' ', output.IndexOf(DOWNLOADSIZESTRING)) + 1;
                     string sizeString = output.Substring(sizeIndex, output.IndexOf(DOWNLOADSIZESTRING) - sizeIndex + 2);
