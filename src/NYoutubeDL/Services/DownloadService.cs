@@ -1,4 +1,4 @@
-﻿// Copyright 2020 Brian Allred
+﻿// Copyright 2021 Brian Allred
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to
@@ -72,7 +72,7 @@ namespace NYoutubeDL.Services
             SetupDownload(ydl, cancellationToken);
 
             await ydl.process?.WaitForExitAsync(cancellationToken);
-            
+
             if (!ydl.isGettingInfo)
             {
                 ydl.IsDownloading = false;
@@ -117,7 +117,7 @@ namespace NYoutubeDL.Services
             SetupDownload(ydl, cancellationToken);
 
             ydl.process?.WaitForExit();
-            
+
             if (!ydl.isGettingInfo)
             {
                 ydl.IsDownloading = false;

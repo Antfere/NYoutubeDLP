@@ -1,4 +1,4 @@
-﻿// Copyright 2020 Brian Allred
+﻿// Copyright 2021 Brian Allred
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to
@@ -83,7 +83,7 @@ namespace NYoutubeDL.Options
         {
             return JsonConvert.DeserializeObject<Options>(json);
         }
-        
+
         public string Serialize()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);

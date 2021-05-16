@@ -1,4 +1,4 @@
-﻿// Copyright 2020 Brian Allred
+﻿// Copyright 2021 Brian Allred
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to
@@ -40,7 +40,7 @@ namespace NYoutubeDL.Helpers
                 return string.Empty;
             }
 
-            return this.ParamString + " " + ((DateTime) this.Value).ToString("yyyyMMdd");
+            return this.ParamString + " " + ((DateTime)this.Value).ToString("yyyyMMdd");
         }
     }
 }

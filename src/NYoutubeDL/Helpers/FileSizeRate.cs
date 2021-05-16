@@ -1,4 +1,4 @@
-﻿// Copyright 2020 Brian Allred
+﻿// Copyright 2021 Brian Allred
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to
@@ -57,7 +57,7 @@ namespace NYoutubeDL.Helpers
         {
             this.SizeRate = double.Parse(sizeRate.Substring(0, sizeRate.Length - 1));
             this.Unit =
-                (Enums.ByteUnit) Enum.Parse(typeof(Enums.ByteUnit), sizeRate[sizeRate.Length - 1].ToString().ToUpper(), true);
+                (Enums.ByteUnit)Enum.Parse(typeof(Enums.ByteUnit), sizeRate[sizeRate.Length - 1].ToString().ToUpper(), true);
         }
 
         /// <summary>

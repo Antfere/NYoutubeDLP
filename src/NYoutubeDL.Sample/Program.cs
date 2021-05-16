@@ -1,4 +1,4 @@
-﻿// Copyright 2020 Brian Allred
+﻿// Copyright 2021 Brian Allred
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to
@@ -46,10 +46,10 @@ namespace NYoutubeDL.Sample
 
             ydlClient.StandardErrorEvent += (sender, error) => Console.WriteLine(error);
             ydlClient.StandardOutputEvent += (sender, output) => Console.WriteLine(output);
-            
-            ydlClient.Info.PropertyChanged += (sender, e) => 
+
+            ydlClient.Info.PropertyChanged += (sender, e) =>
             {
-                DownloadInfo info = (DownloadInfo) sender;
+                DownloadInfo info = (DownloadInfo)sender;
                 var propertyValue = info.GetType().GetProperty(e.PropertyName).GetValue(info);
 
                 switch (e.PropertyName)

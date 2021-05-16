@@ -1,4 +1,4 @@
-﻿// Copyright 2020 Brian Allred
+﻿// Copyright 2021 Brian Allred
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to
@@ -70,7 +70,7 @@ namespace NYoutubeDL.Helpers
                         switch (fieldValue)
                         {
                             case BoolOption boolField:
-                                boolField.Value = (bool) childPair.Value;
+                                boolField.Value = (bool)childPair.Value;
                                 fieldInfo.SetValue(property, boolField);
                                 break;
                             case DateTimeOption datetimeField:
@@ -78,7 +78,7 @@ namespace NYoutubeDL.Helpers
                                 fieldInfo.SetValue(property, datetimeField);
                                 break;
                             case DoubleOption doubleField:
-                                doubleField.Value = (double) childPair.Value;
+                                doubleField.Value = (double)childPair.Value;
                                 fieldInfo.SetValue(property, doubleField);
                                 break;
                             case FileSizeRateOption fileSizeRateField:

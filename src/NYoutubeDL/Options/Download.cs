@@ -1,4 +1,4 @@
-﻿// Copyright 2020 Brian Allred
+﻿// Copyright 2021 Brian Allred
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to
@@ -31,12 +31,14 @@ namespace NYoutubeDL.Options
     /// </summary>
     public class Download : OptionSection
     {
-        [Option] internal readonly BoolOption abortOnUnavailableFragment =
+        [Option]
+        internal readonly BoolOption abortOnUnavailableFragment =
             new BoolOption("--abort-on-unavailable-fragment");
 
         [Option] internal readonly FileSizeRateOption bufferSize = new FileSizeRateOption("--buffer-size");
 
-        [Option] internal readonly EnumOption<Enums.ExternalDownloader> externalDownloader =
+        [Option]
+        internal readonly EnumOption<Enums.ExternalDownloader> externalDownloader =
             new EnumOption<Enums.ExternalDownloader>("--external-downloader");
 
         [Option] internal readonly StringOption externalDownloaderArgs = new StringOption("--external-downloader-args");
@@ -90,8 +92,8 @@ namespace NYoutubeDL.Options
         {
             get => this.externalDownloader.Value == null
                 ? Enums.ExternalDownloader.undefined
-                : (Enums.ExternalDownloader) this.externalDownloader.Value;
-            set => this.SetField(ref this.externalDownloader.Value, (int) value);
+                : (Enums.ExternalDownloader)this.externalDownloader.Value;
+            set => this.SetField(ref this.externalDownloader.Value, (int)value);
         }
 
         /// <summary>

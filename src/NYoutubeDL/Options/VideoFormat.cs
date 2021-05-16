@@ -1,4 +1,4 @@
-﻿// Copyright 2020 Brian Allred
+﻿// Copyright 2021 Brian Allred
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to
@@ -39,7 +39,8 @@ namespace NYoutubeDL.Options
 
         [Option] internal readonly BoolOption listFormats = new BoolOption("-F");
 
-        [Option] internal readonly EnumOption<Enums.VideoFormat> mergeOutputFormat =
+        [Option]
+        internal readonly EnumOption<Enums.VideoFormat> mergeOutputFormat =
             new EnumOption<Enums.VideoFormat>("--merge-output-format");
 
         [Option] internal readonly BoolOption preferFreeFormats = new BoolOption("--prefer-free-formats");
@@ -62,8 +63,8 @@ namespace NYoutubeDL.Options
         /// </summary>
         public Enums.VideoFormat Format
         {
-            get => this.format.Value == null ? Enums.VideoFormat.undefined : (Enums.VideoFormat) this.format.Value;
-            set => this.SetField(ref this.format.Value, (int) value);
+            get => this.format.Value == null ? Enums.VideoFormat.undefined : (Enums.VideoFormat)this.format.Value;
+            set => this.SetField(ref this.format.Value, (int)value);
         }
 
         /// <summary>
@@ -93,8 +94,8 @@ namespace NYoutubeDL.Options
         {
             get => this.mergeOutputFormat.Value == null
                 ? Enums.VideoFormat.undefined
-                : (Enums.VideoFormat) this.mergeOutputFormat.Value;
-            set => this.SetField(ref this.mergeOutputFormat.Value, (int) value);
+                : (Enums.VideoFormat)this.mergeOutputFormat.Value;
+            set => this.SetField(ref this.mergeOutputFormat.Value, (int)value);
         }
 
         /// <summary>

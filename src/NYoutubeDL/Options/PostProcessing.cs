@@ -1,4 +1,4 @@
-﻿// Copyright 2020 Brian Allred
+﻿// Copyright 2021 Brian Allred
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to
@@ -33,14 +33,16 @@ namespace NYoutubeDL.Options
     {
         [Option] internal readonly BoolOption addMetadata = new BoolOption("--add-metadata");
 
-        [Option] internal readonly EnumOption<Enums.AudioFormat> audioFormat =
+        [Option]
+        internal readonly EnumOption<Enums.AudioFormat> audioFormat =
             new EnumOption<Enums.AudioFormat>("--audio-format");
 
         [Option] internal readonly StringOption audioQuality = new StringOption("--audio-quality");
 
         [Option] internal readonly StringOption command = new StringOption("--exec");
 
-        [Option] internal readonly EnumOption<Enums.SubtitleFormat> convertSubs =
+        [Option]
+        internal readonly EnumOption<Enums.SubtitleFormat> convertSubs =
             new EnumOption<Enums.SubtitleFormat>("--convert-subs");
 
         [Option] internal readonly BoolOption embedSubs = new BoolOption("--embed-subs");
@@ -51,7 +53,8 @@ namespace NYoutubeDL.Options
 
         [Option] internal readonly StringOption ffmpegLocation = new StringOption("--ffmpeg-location");
 
-        [Option] internal readonly EnumOption<Enums.FixupPolicy> fixupPolicy =
+        [Option]
+        internal readonly EnumOption<Enums.FixupPolicy> fixupPolicy =
             new EnumOption<Enums.FixupPolicy>("--fixup");
 
         [Option] internal readonly BoolOption keepVideo = new BoolOption("-k");
@@ -66,7 +69,8 @@ namespace NYoutubeDL.Options
 
         [Option] internal readonly BoolOption preferFfmpeg = new BoolOption("--prefer-ffmpeg");
 
-        [Option] internal readonly EnumOption<Enums.VideoFormat> recodeFormat =
+        [Option]
+        internal readonly EnumOption<Enums.VideoFormat> recodeFormat =
             new EnumOption<Enums.VideoFormat>("--recode-video");
 
         [Option] internal readonly BoolOption xattrs = new BoolOption("--xattrs");
@@ -87,8 +91,8 @@ namespace NYoutubeDL.Options
         {
             get => this.audioFormat.Value == null
                 ? Enums.AudioFormat.best
-                : (Enums.AudioFormat) this.audioFormat.Value;
-            set => this.SetField(ref this.audioFormat.Value, (int) value);
+                : (Enums.AudioFormat)this.audioFormat.Value;
+            set => this.SetField(ref this.audioFormat.Value, (int)value);
         }
 
         /// <summary>
@@ -116,8 +120,8 @@ namespace NYoutubeDL.Options
         {
             get => this.convertSubs.Value == null
                 ? Enums.SubtitleFormat.undefined
-                : (Enums.SubtitleFormat) this.convertSubs.Value;
-            set => this.SetField(ref this.convertSubs.Value, (int) value);
+                : (Enums.SubtitleFormat)this.convertSubs.Value;
+            set => this.SetField(ref this.convertSubs.Value, (int)value);
         }
 
         /// <summary>
@@ -163,8 +167,8 @@ namespace NYoutubeDL.Options
         {
             get => this.fixupPolicy.Value == null
                 ? Enums.FixupPolicy.detect_or_warn
-                : (Enums.FixupPolicy) this.fixupPolicy.Value;
-            set => this.SetField(ref this.fixupPolicy.Value, (int) value);
+                : (Enums.FixupPolicy)this.fixupPolicy.Value;
+            set => this.SetField(ref this.fixupPolicy.Value, (int)value);
         }
 
         /// <summary>
@@ -228,8 +232,8 @@ namespace NYoutubeDL.Options
         {
             get => this.recodeFormat.Value == null
                 ? Enums.VideoFormat.undefined
-                : (Enums.VideoFormat) this.recodeFormat.Value;
-            set => this.SetField(ref this.recodeFormat.Value, (int) value);
+                : (Enums.VideoFormat)this.recodeFormat.Value;
+            set => this.SetField(ref this.recodeFormat.Value, (int)value);
         }
 
         /// <summary>

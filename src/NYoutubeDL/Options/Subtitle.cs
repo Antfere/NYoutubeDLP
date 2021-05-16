@@ -1,4 +1,4 @@
-﻿// Copyright 2020 Brian Allred
+﻿// Copyright 2021 Brian Allred
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to
@@ -35,7 +35,8 @@ namespace NYoutubeDL.Options
 
         [Option] internal readonly BoolOption listsubs = new BoolOption("--list-subs");
 
-        [Option] internal readonly EnumOption<Enums.SubtitleFormat> subFormat =
+        [Option]
+        internal readonly EnumOption<Enums.SubtitleFormat> subFormat =
             new EnumOption<Enums.SubtitleFormat>("--sub-format");
 
         [Option] internal readonly StringOption subFormatAdvanced = new StringOption("--sub-format");
@@ -73,8 +74,8 @@ namespace NYoutubeDL.Options
         {
             get => this.subFormat.Value == null
                 ? Enums.SubtitleFormat.undefined
-                : (Enums.SubtitleFormat) this.subFormat.Value;
-            set => this.SetField(ref this.subFormat.Value, (int) value);
+                : (Enums.SubtitleFormat)this.subFormat.Value;
+            set => this.SetField(ref this.subFormat.Value, (int)value);
         }
 
         /// <summary>
@@ -121,7 +122,7 @@ namespace NYoutubeDL.Options
             // then return the parameters.
             if (!string.IsNullOrWhiteSpace(this.subFormatAdvanced.Value))
             {
-                this.subFormat.Value = (int) Enums.SubtitleFormat.undefined;
+                this.subFormat.Value = (int)Enums.SubtitleFormat.undefined;
             }
 
             return base.ToCliParameters();
