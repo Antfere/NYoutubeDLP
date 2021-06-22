@@ -63,11 +63,18 @@ namespace NYoutubeDL.Services
             SetInfoOptions(ydl);
 
             // Save the original event delegates and clear the event handler
-            Delegate[] originalDelegates = null;
+            Delegate[] originalStdOutputEventDelegates = null;
             if (ydl.stdOutputEvent != null)
             {
-                originalDelegates = ydl.stdOutputEvent.GetInvocationList();
+                originalStdOutputEventDelegates = ydl.stdOutputEvent.GetInvocationList();
                 ydl.stdOutputEvent = null;
+            }
+
+            Delegate[] originalStdOutputClosedEventDelegates = null;
+            if (ydl.stdOutputClosedEvent != null)
+            {
+                originalStdOutputClosedEventDelegates = ydl.stdOutputClosedEvent.GetInvocationList();
+                ydl.stdOutputClosedEvent = null;
             }
 
             // Local function for easier event handling
@@ -79,7 +86,14 @@ namespace NYoutubeDL.Services
                 }
             }
 
+            var outputClosed = false;
+            void ReveiveOutputClosed(object sender, EventArgs output)
+            {
+                outputClosed = true;
+            }
+
             ydl.StandardOutputEvent += ParseInfoJson;
+            ydl.StandardOutputClosedEvent += ReveiveOutputClosed;
 
             // Set up the command
             PreparationService.SetupPrepare(ydl);
@@ -87,35 +101,42 @@ namespace NYoutubeDL.Services
             // Download the info
             await DownloadService.DownloadAsync(ydl, cancellationToken);
 
-            while ((!ydl.process.HasExited || infos.Count == 0) && !cancellationToken.IsCancellationRequested)
+            while ((!ydl.process.HasExited || !outputClosed) && !cancellationToken.IsCancellationRequested)
             {
                 await Task.Delay(1);
             }
 
-            if (cancellationToken.IsCancellationRequested)
+            if (!cancellationToken.IsCancellationRequested && infos.Count > 0)
             {
-                return null;
+                // Set the info object
+                ydl.Info = infos.Count > 1 ? new MultiDownloadInfo(infos) : infos[0];
             }
-
-            // Set the info object
-            ydl.Info = infos.Count > 1 ? new MultiDownloadInfo(infos) : infos[0];
 
             // Set options back to what they were
             ydl.Options = Options.Deserialize(originalOptions);
 
             // Clear the event handler
             ydl.stdOutputEvent = null;
+            ydl.stdOutputClosedEvent = null;
 
             // Re-subscribe to each event delegate
-            if (originalDelegates != null)
+            if (originalStdOutputEventDelegates != null)
             {
-                foreach (Delegate del in originalDelegates)
+                foreach (Delegate del in originalStdOutputEventDelegates)
                 {
                     ydl.StandardOutputEvent += (EventHandler<string>)del;
                 }
             }
 
-            return ydl.Info;
+            if (originalStdOutputClosedEventDelegates != null)
+            {
+                foreach (Delegate del in originalStdOutputClosedEventDelegates)
+                {
+                    ydl.StandardOutputClosedEvent += (EventHandler)del;
+                }
+            }
+
+            return infos.Count > 0 ? ydl.Info : null;
         }
 
         /// <summary>
@@ -144,11 +165,17 @@ namespace NYoutubeDL.Services
             SetInfoOptions(ydl);
 
             // Save the original event delegates and clear the event handler
-            Delegate[] originalDelegates = null;
+            Delegate[] originalStdOutputEventDelegates = null;
             if (ydl.stdOutputEvent != null)
             {
-                originalDelegates = ydl.stdOutputEvent.GetInvocationList();
+                originalStdOutputEventDelegates = ydl.stdOutputEvent.GetInvocationList();
                 ydl.stdOutputEvent = null;
+            }
+            Delegate[] originalStdOutputClosedEventDelegates = null;
+            if (ydl.stdOutputClosedEvent != null)
+            {
+                originalStdOutputEventDelegates = ydl.stdOutputClosedEvent.GetInvocationList();
+                ydl.stdOutputClosedEvent = null;
             }
 
             // Local function for easier event handling
@@ -157,7 +184,14 @@ namespace NYoutubeDL.Services
                 infos.Add(DownloadInfo.CreateDownloadInfo(output));
             }
 
+            var outputClosed = false;
+            void ReveiveOutputClosed(object sender, EventArgs output)
+            {
+                outputClosed = true;
+            }
+
             ydl.StandardOutputEvent += ParseInfoJson;
+            ydl.StandardOutputClosedEvent += ReveiveOutputClosed;
 
             // Set up the command
             PreparationService.SetupPrepare(ydl);
@@ -165,35 +199,41 @@ namespace NYoutubeDL.Services
             // Download the info
             DownloadService.Download(ydl, cancellationToken);
 
-            while ((!ydl.process.HasExited || infos.Count == 0) && !cancellationToken.IsCancellationRequested)
+            while ((!ydl.process.HasExited || !outputClosed) && !cancellationToken.IsCancellationRequested)
             {
                 Thread.Sleep(1);
             }
 
-            if (cancellationToken.IsCancellationRequested)
+            if (!cancellationToken.IsCancellationRequested && infos.Count > 0)
             {
-                return null;
+                // Set the info object
+                ydl.Info = infos.Count > 1 ? new MultiDownloadInfo(infos) : infos[0];
             }
-
-            // Set the info object
-            ydl.Info = infos.Count > 1 ? new MultiDownloadInfo(infos) : infos[0];
 
             // Set options back to what they were
             ydl.Options = Options.Deserialize(originalOptions);
 
             // Clear the event handler
             ydl.stdOutputEvent = null;
+            ydl.stdOutputClosedEvent = null;
 
             // Re-subscribe to each event delegate
-            if (originalDelegates != null)
+            if (originalStdOutputEventDelegates != null)
             {
-                foreach (Delegate del in originalDelegates)
+                foreach (Delegate del in originalStdOutputEventDelegates)
                 {
                     ydl.StandardOutputEvent += (EventHandler<string>)del;
                 }
             }
+            if (originalStdOutputClosedEventDelegates != null)
+            {
+                foreach (Delegate del in originalStdOutputClosedEventDelegates)
+                {
+                    ydl.StandardOutputClosedEvent += (EventHandler)del;
+                }
+            }
 
-            return ydl.Info;
+            return infos.Count > 0 ? ydl.Info : null;
         }
 
         /// <summary>

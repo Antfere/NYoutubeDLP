@@ -65,6 +65,8 @@ namespace NYoutubeDL
 
         internal EventHandler<string> stdOutputEvent;
 
+        internal EventHandler stdOutputClosedEvent;
+
         /// <summary>
         ///     Cancellation token used to stop the thread processing youtube-dl's standard console output.
         /// </summary>
@@ -420,6 +422,11 @@ namespace NYoutubeDL
                 catch (InvalidOperationException)
                 {
                 }
+                finally
+                {
+                    this.stdOutputClosedEvent?.Invoke(this, EventArgs.Empty);
+                }
+
             }
         }
 
@@ -430,6 +437,15 @@ namespace NYoutubeDL
         {
             add => this.stdOutputEvent += value;
             remove => this.stdOutputEvent -= value;
+        }
+
+        /// <summary>
+        ///     Occurs when standard output is closed.
+        /// </summary>
+        public event EventHandler StandardOutputClosedEvent
+        {
+            add => this.stdOutputClosedEvent += value;
+            remove => this.stdOutputClosedEvent -= value;
         }
 
         public event PropertyChangedEventHandler InfoChangedEvent;
