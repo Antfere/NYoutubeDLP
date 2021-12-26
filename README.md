@@ -1,3 +1,5 @@
+Work in progress, all credit goes to the original Nyoutube-dl wrapper by Brian Allred which can be found on Gitlab here: https://gitlab.com/BrianAllred/NYoutubeDL
+
 # NYoutubeDL
 
 [![pipeline status](https://gitlab.com/BrianAllred/NYoutubeDL/badges/master/pipeline.svg)](https://gitlab.com/BrianAllred/NYoutubeDL/commits/master)
