@@ -61,6 +61,14 @@ namespace NYoutubeDL.Options
 
         public Workarounds WorkaroundsOptions { get; private set; } = new Workarounds();
 
+        // New
+
+        public Extractor ExtractorOptions { get; private set;} = new Extractor();
+
+        public SponsorBlock SponsorBlockOptions { get; private set;} = new SponsorBlock();
+
+        public InternetShortCut InternetShortCutOptions { get; private set;} = new InternetShortCut();
+
         public void Clear()
         {
             this.AdobePassOptions = new AdobePass();
@@ -77,6 +85,9 @@ namespace NYoutubeDL.Options
             this.VideoFormatOptions = new VideoFormat();
             this.VideoSelectionOptions = new VideoSelection();
             this.WorkaroundsOptions = new Workarounds();
+            this.ExtractorOptions = new Extractor();
+            this.SponsorBlockOptions = new SponsorBlock();
+            this.InternetShortCutOptions = new InternetShortCut();
         }
 
         public static Options Deserialize(string json)
@@ -110,7 +121,10 @@ namespace NYoutubeDL.Options
                                 this.VerbositySimulationOptions.ToCliParameters() +
                                 this.VideoFormatOptions.ToCliParameters() +
                                 this.VideoSelectionOptions.ToCliParameters() +
-                                this.WorkaroundsOptions.ToCliParameters();
+                                this.WorkaroundsOptions.ToCliParameters() +
+                                this.ExtractorOptions.ToCliParameters() +
+                                this.SponsorBlockOptions.ToCliParameters() +
+                                this.InternetShortCutOptions.ToCliParameters();
 
             // Remove extra spaces
             return parameters.RemoveExtraWhitespace();
