@@ -44,7 +44,7 @@ namespace NYoutubeDL.Services
         /// <param name="cancellationToken">
         ///     The cancellation token
         /// </param>
-        internal static async Task DownloadAsync(this YoutubeDL ydl, CancellationToken cancellationToken)
+        internal static async Task DownloadAsync(this YoutubeDLP ydl, CancellationToken cancellationToken)
         {
             cancellationToken.Register(() =>
             {
@@ -89,7 +89,7 @@ namespace NYoutubeDL.Services
         /// <param name="cancellationToken">
         ///     The cancellation token
         /// </param>
-        internal static void Download(this YoutubeDL ydl, CancellationToken cancellationToken)
+        internal static void Download(this YoutubeDLP ydl, CancellationToken cancellationToken)
         {
             cancellationToken.Register(() =>
             {
@@ -137,7 +137,7 @@ namespace NYoutubeDL.Services
         /// <param name="cancellationToken">
         ///     The cancellation token
         /// </param>
-        internal static async Task DownloadAsync(this YoutubeDL ydl, string url, CancellationToken cancellationToken)
+        internal static async Task DownloadAsync(this YoutubeDLP ydl, string url, CancellationToken cancellationToken)
         {
             ydl.VideoUrl = url;
             await DownloadAsync(ydl, cancellationToken);
@@ -155,13 +155,13 @@ namespace NYoutubeDL.Services
         /// <param name="cancellationToken">
         ///     The cancellation token
         /// </param>
-        internal static void Download(this YoutubeDL ydl, string url, CancellationToken cancellationToken)
+        internal static void Download(this YoutubeDLP ydl, string url, CancellationToken cancellationToken)
         {
             ydl.VideoUrl = url;
             Download(ydl, cancellationToken);
         }
 
-        private static void SetupDownload(YoutubeDL ydl, CancellationToken cancellationToken)
+        private static void SetupDownload(YoutubeDLP ydl, CancellationToken cancellationToken)
         {
             if (cancellationToken.IsCancellationRequested)
             {
@@ -192,7 +192,7 @@ namespace NYoutubeDL.Services
             ydl.downloadProcessID = ydl.process.Id;
         }
 
-        private static void Cancel(YoutubeDL ydl, int count = 0)
+        private static void Cancel(YoutubeDLP ydl, int count = 0)
         {
             try
             {

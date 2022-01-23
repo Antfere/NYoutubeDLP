@@ -50,12 +50,15 @@ namespace NYoutubeDL.Options
 
         [Option] internal readonly BoolOption noCacheDir = new BoolOption("--no-cache-dir");
 
+        // Inverse of continueOpt, but continueOpt has no ability to be flipped off, so this is neccessary
         [Option] internal readonly BoolOption noContinue = new BoolOption("--no-continue");
 
+        // Same setup here, mtime is true by default
         [Option] internal readonly BoolOption noMtime = new BoolOption("--no-mtime");
 
         [Option] internal readonly BoolOption noOverwrites = new BoolOption("-w");
 
+        // Same here
         [Option] internal readonly BoolOption noPart = new BoolOption("--no-part");
 
         [Option] internal readonly StringOption output = new StringOption("-o");

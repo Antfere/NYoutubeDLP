@@ -17,22 +17,25 @@ namespace NYoutubeDL.Options
         // Process dynamic DASH manifests
         [Option] internal readonly BoolOption allowDynamicMpd = new BoolOption("--allow-dynamic-mpd");
 
+        // Should be kept as the positive option has no off switch
         [Option] internal readonly BoolOption ignoreDynamicMpd = new BoolOption("--ignore-dynamic-mpd");
 
         [Option] internal readonly BoolOption hlsSplitDiscontinuity = new BoolOption("--hls-split-discontinuity");
 
-        [Option] internal readonly BoolOption noHlsSplitDiscontinuity = new BoolOption("--no-hls-split-discontinuity");
+        // --no-hls-split-discontinuity not required, positive option off by default.
 
-        // Pass these arguments to the extractor. See "EXTRACTOR ARGUMENTS" for details. Arguments are seperated by semi colon?
-        // I don't think you can use this option multiple times to give arguments for different extractors
-        // [Option] internal readonly StringOption cookies = new StringOption("--extractor-args");
+        // Pass these arguments to the extractor. See "EXTRACTOR ARGUMENTS" for details.
+        // I don't think you can use this option multiple times to give arguments for different extractors currently, but I will implement a way later.
+        [Option] internal readonly StringOption extractorArgs = new StringOption("--extractor-args");
 
         [Option] internal readonly BoolOption youtubeIncludeDashManifest = new BoolOption("--youtube-include-dash-manifest");
 
+        // Necessary
         [Option] internal readonly BoolOption youtubeSkipDashManifest = new BoolOption("--youtube-skip-dash-manifest");
 
         [Option] internal readonly BoolOption youtubeIncludeHlsManifest = new BoolOption("--youtube-include-hls-manifest");
 
+        // Necessary
         [Option] internal readonly BoolOption youtubeSkipHlsManifest = new BoolOption("--youtube-skip-hls-manifest");
 
         /// <summary>
@@ -72,12 +75,12 @@ namespace NYoutubeDL.Options
         }
 
         /// <summary>
-        ///     --no-hls-split-discontinuity
+        ///     --extractor-args
         /// </summary>
-        public bool NoHlsSplitDiscontinuity
+        public string ExtractorArgs
         {
-            get => this.noHlsSplitDiscontinuity.Value ?? false;
-            set => this.SetField(ref this.noHlsSplitDiscontinuity.Value, value);
+            get => this.extractorArgs.Value;
+            set => this.SetField(ref this.extractorArgs.Value, value);
         }
 
         /// <summary>

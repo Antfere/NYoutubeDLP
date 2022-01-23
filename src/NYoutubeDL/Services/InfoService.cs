@@ -49,7 +49,7 @@ namespace NYoutubeDL.Services
         /// <returns>
         ///     An object containing the download information
         /// </returns>
-        internal static async Task<DownloadInfo> GetDownloadInfoAsync(this YoutubeDL ydl, CancellationToken cancellationToken)
+        internal static async Task<DownloadInfo> GetDownloadInfoAsync(this YoutubeDLP ydl, CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(ydl.VideoUrl))
             {
@@ -151,7 +151,7 @@ namespace NYoutubeDL.Services
         /// <returns>
         ///     An object containing the download information
         /// </returns>
-        internal static DownloadInfo GetDownloadInfo(this YoutubeDL ydl, CancellationToken cancellationToken)
+        internal static DownloadInfo GetDownloadInfo(this YoutubeDLP ydl, CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(ydl.VideoUrl))
             {
@@ -251,7 +251,7 @@ namespace NYoutubeDL.Services
         /// <returns>
         ///     An object containing the download information
         /// </returns>
-        internal static async Task<DownloadInfo> GetDownloadInfoAsync(this YoutubeDL ydl, string url, CancellationToken cancellationToken)
+        internal static async Task<DownloadInfo> GetDownloadInfoAsync(this YoutubeDLP ydl, string url, CancellationToken cancellationToken)
         {
             ydl.VideoUrl = url;
             await GetDownloadInfoAsync(ydl, cancellationToken);
@@ -273,13 +273,13 @@ namespace NYoutubeDL.Services
         /// <returns>
         ///     An object containing the download information
         /// </returns>
-        internal static DownloadInfo GetDownloadInfo(this YoutubeDL ydl, string url, CancellationToken cancellationToken)
+        internal static DownloadInfo GetDownloadInfo(this YoutubeDLP ydl, string url, CancellationToken cancellationToken)
         {
             ydl.VideoUrl = url;
             return GetDownloadInfo(ydl, cancellationToken);
         }
 
-        private static void SetInfoOptions(YoutubeDL ydl)
+        private static void SetInfoOptions(YoutubeDLP ydl)
         {
             Options infoOptions = new Options
             {

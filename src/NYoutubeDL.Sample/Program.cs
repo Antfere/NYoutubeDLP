@@ -33,7 +33,7 @@ namespace NYoutubeDL.Sample
     {
         public static void Main(string[] args)
         {
-            YoutubeDL ydlClient = new YoutubeDL();
+            YoutubeDLP ydlClient = new YoutubeDLP();
 
             ydlClient.Options.DownloadOptions.FragmentRetries = -1;
             ydlClient.Options.DownloadOptions.Retries = -1;

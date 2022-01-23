@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NYoutubeDL\NYoutubeDL.csproj" />
+    <ProjectReference Include="..\NYoutubeDL\NYoutubeDLP.csproj" />
   </ItemGroup>
 
 </Project>

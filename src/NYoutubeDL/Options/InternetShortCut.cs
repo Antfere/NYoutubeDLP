@@ -21,7 +21,7 @@ namespace NYoutubeDL.Options
         [Option] internal readonly BoolOption writeDesktopLink = new BoolOption("--write-desktop-link");
 
         /// <summary>
-        ///     --autonumber-size
+        ///     --write-info-json
         /// </summary>
         public bool WriteLink
         {
@@ -30,7 +30,7 @@ namespace NYoutubeDL.Options
         }
 
         /// <summary>
-        ///     --autonumber-start
+        ///     --write-info-json
         /// </summary>
         public bool WriteUrlLink
         {
@@ -39,7 +39,7 @@ namespace NYoutubeDL.Options
         }
 
         /// <summary>
-        ///     -a
+        ///     --write-info-json
         /// </summary>
         public bool WriteWeblocLink
         {
@@ -48,7 +48,7 @@ namespace NYoutubeDL.Options
         }
 
         /// <summary>
-        ///     --cache-dir
+        ///     --write-desktop-link
         /// </summary>
         public bool WriteDesktopLink
         {

@@ -50,7 +50,7 @@ namespace NYoutubeDL.Services
         /// <returns>
         ///     The youtube-dl command that will be executed
         /// </returns>
-        internal static async Task<string> PrepareDownloadAsync(this YoutubeDL ydl, CancellationToken cancellationToken)
+        internal static async Task<string> PrepareDownloadAsync(this YoutubeDLP ydl, CancellationToken cancellationToken)
         {
             if (!ydl.Info.set)
             {
@@ -91,7 +91,7 @@ namespace NYoutubeDL.Services
         /// <returns>
         ///     The youtube-dl command that will be executed
         /// </returns>
-        internal static string PrepareDownload(this YoutubeDL ydl, CancellationToken cancellationToken)
+        internal static string PrepareDownload(this YoutubeDLP ydl, CancellationToken cancellationToken)
         {
             if (!ydl.Info.set)
             {
@@ -126,7 +126,7 @@ namespace NYoutubeDL.Services
         /// <param name="ydl">
         ///     Client with configured options
         /// </param>
-        internal static void SetupPrepare(YoutubeDL ydl)
+        internal static void SetupPrepare(YoutubeDLP ydl)
         {
             string urls = string.IsNullOrWhiteSpace(ydl.VideoUrl) ? string.Empty : string.Join(" ", ydl.VideoUrl.Split(null).Select(url => $"\"{url}\""));
             string arguments = ydl.Options.ToCliParameters() + " " + urls;

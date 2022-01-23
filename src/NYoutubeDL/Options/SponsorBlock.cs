@@ -16,30 +16,24 @@ namespace NYoutubeDL.Options
 
         [Option] internal readonly StringOption sponsorblockRemove = new StringOption("--sponsorblock-remove");
 
-        [Option] internal readonly StringOption sponsorblockChapterTitle = new StringOption("--sponsorblock-chapter-title");
+        // No need for --no-sponsorblock option, just don't use the above two.
 
-        [Option] internal readonly BoolOption noSponsorblock = new BoolOption("--no-sponsorblock");
+        [Option] internal readonly StringOption sponsorblockChapterTitle = new StringOption("--sponsorblock-chapter-title");
 
         [Option] internal readonly StringOption sponsorblockAPI = new StringOption("--sponsorblock-api");
 
         [Option] internal readonly BoolOption sponskrub = new BoolOption("--sponskrub");
 
-        [Option] internal readonly BoolOption noSponskrub = new BoolOption("--no-sponskrub");
-
         [Option] internal readonly BoolOption sponskrubCut = new BoolOption("--sponskrub-cut");
 
-        [Option] internal readonly BoolOption noSponskrubCut = new BoolOption("--no-sponskrub-cut");
-
         [Option] internal readonly BoolOption sponskrubForce = new BoolOption("--sponskrub-force");
-
-        [Option] internal readonly BoolOption noSponskrubForce = new BoolOption("--no-sponskrub-force");
 
         [Option] internal readonly StringOption sponskrubLocation = new StringOption("--sponskrub-location");
 
         [Option] internal readonly StringOption sponskrubArgs = new StringOption("--sponskrub-args");
 
         /// <summary>
-        ///     --autonumber-size
+        ///     --sponsorblock-mark
         /// </summary>
         public string SponsorblockMark
         {
@@ -48,7 +42,7 @@ namespace NYoutubeDL.Options
         }
 
         /// <summary>
-        ///     --autonumber-start
+        ///     --sponsorblock-remove
         /// </summary>
         public string SponsorblockRemove
         {
@@ -57,7 +51,7 @@ namespace NYoutubeDL.Options
         }
 
         /// <summary>
-        ///     -a
+        ///     --sponsorblock-chapter-title
         /// </summary>
         public string SponsorblockChapterTitle
         {
@@ -66,16 +60,7 @@ namespace NYoutubeDL.Options
         }
 
         /// <summary>
-        ///     --cache-dir
-        /// </summary>
-        public bool NoSponsorblock
-        {
-            get => this.noSponsorblock.Value ?? false;
-            set => this.SetField(ref this.noSponsorblock.Value, value);
-        }
-
-        /// <summary>
-        ///     -c
+        ///     --sponsorblock-api
         /// </summary>
         public string SponsorblockAPI
         {
@@ -84,7 +69,7 @@ namespace NYoutubeDL.Options
         }
 
         /// <summary>
-        ///     --cookies
+        ///     --sponskrub
         /// </summary>
         public bool Sponskrub
         {
@@ -93,16 +78,7 @@ namespace NYoutubeDL.Options
         }
 
         /// <summary>
-        ///     --id
-        /// </summary>
-        public bool NoSponskrub
-        {
-            get => this.noSponskrub.Value ?? false;
-            set => this.SetField(ref this.noSponskrub.Value, value);
-        }
-
-        /// <summary>
-        ///     --load-info-json
+        ///     --sponskrub-cut
         /// </summary>
         public bool SponskrubCut
         {
@@ -111,16 +87,7 @@ namespace NYoutubeDL.Options
         }
 
         /// <summary>
-        ///     --no-cache-dir
-        /// </summary>
-        public bool NoSponskrubCut
-        {
-            get => this.noSponskrubCut.Value ?? false;
-            set => this.SetField(ref this.noSponskrubCut.Value, value);
-        }
-
-        /// <summary>
-        ///     --no-continue
+        ///     --sponskrub-force
         /// </summary>
         public bool SponskrubForce
         {
@@ -129,16 +96,7 @@ namespace NYoutubeDL.Options
         }
 
         /// <summary>
-        ///     --no-mtime
-        /// </summary>
-        public bool NoSponskrubForce
-        {
-            get => this.noSponskrubForce.Value ?? false;
-            set => this.SetField(ref this.noSponskrubForce.Value, value);
-        }
-
-        /// <summary>
-        ///     -w
+        ///     --sponskrub-location
         /// </summary>
         public string SponskrubLocation
         {
@@ -147,7 +105,7 @@ namespace NYoutubeDL.Options
         }
 
         /// <summary>
-        ///     --no-part
+        ///     --sponskrub-args
         /// </summary>
         public string SponskrubArgs
         {

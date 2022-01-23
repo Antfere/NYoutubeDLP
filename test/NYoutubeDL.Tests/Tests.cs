@@ -36,7 +36,7 @@ namespace NYoutubeDL.Tests
         [Fact]
         public void TestBoolOption()
         {
-            YoutubeDL ydlClient = new YoutubeDL();
+            YoutubeDLP ydlClient = new YoutubeDLP();
             const string extractAudioOptionString = " -x ";
 
             ydlClient.Options.PostProcessingOptions.ExtractAudio = true;
@@ -47,7 +47,7 @@ namespace NYoutubeDL.Tests
         [Fact]
         public void TestDateTimeOption()
         {
-            YoutubeDL ydlClient = new YoutubeDL();
+            YoutubeDLP ydlClient = new YoutubeDLP();
             const string dateDateTimeOption = " --date 20170201 ";
 
             ydlClient.Options.VideoSelectionOptions.Date = new DateTime(2017, 02, 01);
@@ -58,7 +58,7 @@ namespace NYoutubeDL.Tests
         [Fact]
         public void TestEnumOption()
         {
-            YoutubeDL ydlClient = new YoutubeDL();
+            YoutubeDLP ydlClient = new YoutubeDLP();
             const string audioFormatEnumOption = " --audio-format mp3 ";
 
             ydlClient.Options.PostProcessingOptions.AudioFormat = Enums.AudioFormat.mp3;
@@ -69,7 +69,7 @@ namespace NYoutubeDL.Tests
         [Fact]
         public void TestFileSizeRateOption1()
         {
-            YoutubeDL ydlClient = new YoutubeDL();
+            YoutubeDLP ydlClient = new YoutubeDLP();
             const string bufferSizeFileSizeRateOption = " --buffer-size 5.5M ";
 
             ydlClient.Options.DownloadOptions.BufferSize = new FileSizeRate(5.5, Enums.ByteUnit.M);
@@ -80,7 +80,7 @@ namespace NYoutubeDL.Tests
         [Fact]
         public void TestFileSizeRateOption2()
         {
-            YoutubeDL ydlClient = new YoutubeDL();
+            YoutubeDLP ydlClient = new YoutubeDLP();
             const string bufferSizeFileSizeRateOption = " --buffer-size 5.5M ";
 
             ydlClient.Options.DownloadOptions.BufferSize = new FileSizeRate("5.5M");
@@ -91,7 +91,7 @@ namespace NYoutubeDL.Tests
         [Fact]
         public void TestIntOption()
         {
-            YoutubeDL ydlClient = new YoutubeDL();
+            YoutubeDLP ydlClient = new YoutubeDLP();
             const string socketTimeoutIntOption = " --socket-timeout 5 ";
 
             ydlClient.Options.NetworkOptions.SocketTimeout = 5;
@@ -102,7 +102,7 @@ namespace NYoutubeDL.Tests
         [Fact]
         public void TestIntOptionNegativeIsInfinite()
         {
-            YoutubeDL ydlClient = new YoutubeDL();
+            YoutubeDLP ydlClient = new YoutubeDLP();
             const string retriesIntOption = " -R infinite ";
 
             ydlClient.Options.DownloadOptions.Retries = -1;
@@ -113,7 +113,7 @@ namespace NYoutubeDL.Tests
         [Fact]
         public void TestIsMultiDownload()
         {
-            YoutubeDL ydlClient = new YoutubeDL();
+            YoutubeDLP ydlClient = new YoutubeDLP();
 
             ydlClient.VideoUrl = @"https://www.youtube.com/watch?v=dQw4w9WgXcQ https://www.youtube.com/playlist?list=PLrEnWoR732-BHrPp_Pm8_VleD68f9s14-";
 
@@ -125,7 +125,7 @@ namespace NYoutubeDL.Tests
         [Fact]
         public void TestIsPlaylistDownload()
         {
-            YoutubeDL ydlClient = new YoutubeDL();
+            YoutubeDLP ydlClient = new YoutubeDLP();
 
             var info = ydlClient.GetDownloadInfo(@"https://www.youtube.com/playlist?list=PLrEnWoR732-BHrPp_Pm8_VleD68f9s14-");
 
@@ -135,7 +135,7 @@ namespace NYoutubeDL.Tests
         [Fact]
         public void TestIsVideoDownload()
         {
-            YoutubeDL ydlClient = new YoutubeDL();
+            YoutubeDLP ydlClient = new YoutubeDLP();
 
             var info = ydlClient.GetDownloadInfo(@"https://www.youtube.com/watch?v=dQw4w9WgXcQ");
 
@@ -145,7 +145,7 @@ namespace NYoutubeDL.Tests
         [Fact]
         public void TestOptionDeserializer()
         {
-            YoutubeDL ydlClient = new YoutubeDL();
+            YoutubeDLP ydlClient = new YoutubeDLP();
             const string optionsString =
                 "{\"DownloadOptions\": {\"fragmentRetries\": -1,\"retries\": -1},\"PostProcessingOptions\": {\"audioFormat\": 0,\"audioQuality\": \"0\"},\"VideoFormatOptions\": {\"format\": 7}}";
 
@@ -161,7 +161,7 @@ namespace NYoutubeDL.Tests
         [Fact]
         public void TestOptionSerializer()
         {
-            YoutubeDL ydlClient = new YoutubeDL();
+            YoutubeDLP ydlClient = new YoutubeDLP();
             const string optionsString =
                 "{\"DownloadOptions\": {\"fragmentRetries\": -1,\"retries\": -1},\"PostProcessingOptions\": {\"audioFormat\": 0,\"audioQuality\": \"0\"},\"VideoFormatOptions\": {\"format\": 7}}";
 
@@ -179,7 +179,7 @@ namespace NYoutubeDL.Tests
         [Fact]
         public void TestStringOption()
         {
-            YoutubeDL ydlClient = new YoutubeDL();
+            YoutubeDLP ydlClient = new YoutubeDLP();
             const string usernameStringOption = " -u testUser ";
 
             ydlClient.Options.AuthenticationOptions.Username = "testUser";
@@ -190,7 +190,7 @@ namespace NYoutubeDL.Tests
         [Fact]
         public void TestStringOptionWithWhiteSpace()
         {
-            YoutubeDL ydlClient = new YoutubeDL();
+            YoutubeDLP ydlClient = new YoutubeDLP();
             const string ffmpegLocationOption = " --ffmpeg-location \"test location\" ";
 
             ydlClient.Options.PostProcessingOptions.FfmpegLocation = "test location";
@@ -201,7 +201,7 @@ namespace NYoutubeDL.Tests
         [Fact]
         public void TestVideoProgress()
         {
-            YoutubeDL youtubeDl = new YoutubeDL();
+            YoutubeDLP youtubeDl = new YoutubeDLP();
             youtubeDl.VideoUrl = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
 
             youtubeDl.Download();

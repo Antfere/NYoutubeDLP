@@ -31,6 +31,13 @@ namespace NYoutubeDL.Options
     /// </summary>
     public class General : OptionSection
     {
+        // Not required:
+        // --no-abort-on-error not required, abort on error is by default off anyways
+        // --no-config-locations
+        // --no-flat-playlist
+        // --no-live-from-start
+        // --no-wait-for-video
+
         [Option] internal readonly BoolOption abortOnError = new BoolOption("--abort-on-error");
 
         [Option] internal readonly StringOption configLocation = new StringOption("--config-location");
@@ -55,11 +62,22 @@ namespace NYoutubeDL.Options
 
         [Option] internal readonly BoolOption noColor = new BoolOption("--no-color");
 
-        [Option] internal readonly BoolOption noMarkWatched = new BoolOption("--no-mark-watched");
+        // Not Required: [Option] internal readonly BoolOption noMarkWatched = new BoolOption("--no-mark-watched");
 
         [Option] internal readonly BoolOption update = new BoolOption("-U");
 
         [Option] internal readonly BoolOption version = new BoolOption("--version");
+
+        //  new:
+        // --live-from-start
+        // --wait-for-video
+        // --compat-options
+
+        [Option] internal readonly BoolOption liveFromStart = new BoolOption("--live-from-start");
+
+        [Option] internal readonly IntOption waitForVideo = new IntOption("--wait-for-video");
+
+        [Option] internal readonly StringOption compatOptions = new StringOption("--compat-options");
 
         /// <summary>
         ///     --abort-on-error
@@ -167,15 +185,6 @@ namespace NYoutubeDL.Options
         {
             get => this.noColor.Value ?? false;
             set => this.SetField(ref this.noColor.Value, value);
-        }
-
-        /// <summary>
-        ///     --no-mark-watched
-        /// </summary>
-        public bool NoMarkWatched
-        {
-            get => this.noMarkWatched.Value ?? false;
-            set => this.SetField(ref this.noMarkWatched.Value, value);
         }
 
         /// <summary>

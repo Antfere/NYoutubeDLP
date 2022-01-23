@@ -41,7 +41,7 @@ namespace NYoutubeDL
     /// <summary>
     ///     C# interface for youtube-dl
     /// </summary>
-    public class YoutubeDL
+    public class YoutubeDLP
     {
         /// <summary>
         ///     The semaphore
@@ -90,7 +90,7 @@ namespace NYoutubeDL
         /// <summary>
         ///     Creates a new YoutubeDL client
         /// </summary>
-        public YoutubeDL()
+        public YoutubeDLP()
         {
             downloadTokenSource = new CancellationTokenSource();
         }
@@ -101,7 +101,7 @@ namespace NYoutubeDL
         /// <param name="path">
         ///     Path of youtube-dl binary
         /// </param>
-        public YoutubeDL(string path) : this()
+        public YoutubeDLP(string path) : this()
         {
             this.YoutubeDlPath = path;
         }
