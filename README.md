@@ -5,7 +5,17 @@ Nuget package here: https://www.nuget.org/packages/NYoutubeDLP/
 
 All credit goes to the original Nyoutube-dl wrapper by Brian Allred which can be found on Gitlab here: https://gitlab.com/BrianAllred/NYoutubeDL
 
-Every thing below this is the original readme from Nyoutube-dl, all the usage info is the same, you just need youtube-dlp instead of youtube-dl
+Usage is the exact same except you instantiate the class with "NyoutubeDLP();" like so:
+        
+        // Old way
+        var youtubeDl = new YoutubeDL();
+        
+        // New way
+        var youtubeDl = new YoutubeDLP();
+
+Everything else including the "using NYoutubeDL;" statement are the same, you will just be using yt-dlp instead provided it is installed in your path or you point to it in your program directly.
+
+Every thing below this is the original readme from Nyoutube-dl:
 # NYoutubeDL
 
 [![pipeline status](https://gitlab.com/BrianAllred/NYoutubeDL/badges/master/pipeline.svg)](https://gitlab.com/BrianAllred/NYoutubeDL/commits/master)
