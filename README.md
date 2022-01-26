@@ -17,6 +17,10 @@ Everything else including the "using NYoutubeDL;" statement are the same, you wi
 
 For directing playlist downloads to an output directory you can use the following workaround:
 
+        // You need to prepare the playlist download like so, to be able to get the playlist info
+        youtubeDl.VideoUrl = url;
+        youtubeDl.PrepareDownload();
+
         for (int i = 0; i < ((NYoutubeDL.Models.PlaylistDownloadInfo)youtubeDl.Info).Videos.Count; i++)
         {
             youtubeDl.Options.FilesystemOptions.Output = _workingDirPath + "Playlist - " + youtubeDl.Info.Title + "\\Video - " + i;
