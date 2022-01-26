@@ -15,6 +15,14 @@ Usage is the exact same except you instantiate the class with "NyoutubeDLP();" l
 
 Everything else including the "using NYoutubeDL;" statement are the same, you will just be using yt-dlp instead provided it is installed in your path or you point to it in your program directly.
 
+For directing playlists downloads to an output directory you can use the following workaround:
+        for (int i = 0; i < ((NYoutubeDL.Models.PlaylistDownloadInfo)youtubeDl.Info).Videos.Count; i++)
+        {
+            youtubeDl.Options.FilesystemOptions.Output = _workingDirPath + "Playlist - " + youtubeDl.Info.Title + "\\Video - " + i;
+            youtubeDl.Options.VideoSelectionOptions.PlaylistItems = (i+1).ToString();
+            await youtubeDl.DownloadAsync(url);
+        }
+
 Every thing below this is the original readme from Nyoutube-dl:
 # NYoutubeDL
 
