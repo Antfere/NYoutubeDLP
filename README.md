@@ -1,6 +1,7 @@
 Works with youtube-dlp now after changing 2 lines, I intend to maintain the options with updates/fixes. 
 
 Youtube-dlp can be found here: https://github.com/yt-dlp/yt-dlp
+
 Nuget package here: https://www.nuget.org/packages/NYoutubeDLP/
 
 All credit goes to the original Nyoutube-dl wrapper by Brian Allred which can be found on Gitlab here: https://gitlab.com/BrianAllred/NYoutubeDL
