@@ -62,7 +62,8 @@ namespace NYoutubeDL.Options
 
         [Option] internal readonly BoolOption noColor = new BoolOption("--no-color");
 
-        // Not Required: [Option] internal readonly BoolOption noMarkWatched = new BoolOption("--no-mark-watched");
+        // Not required but I will keep it.
+        [Option] internal readonly BoolOption noMarkWatched = new BoolOption("--no-mark-watched");
 
         [Option] internal readonly BoolOption update = new BoolOption("-U");
 
@@ -185,6 +186,15 @@ namespace NYoutubeDL.Options
         {
             get => this.noColor.Value ?? false;
             set => this.SetField(ref this.noColor.Value, value);
+        }
+
+        /// <summary>
+        ///     --no-mark-watched
+        /// </summary>
+        public bool NoMarkWatched
+        {
+            get => this.noMarkWatched.Value ?? false;
+            set => this.SetField(ref this.noMarkWatched.Value, value);
         }
 
         /// <summary>

@@ -44,9 +44,6 @@ namespace NYoutubeDL.Options
         // --resize-buffer
         // externalDownloaderAdvanced string
 
-        // Removed:
-        // noResizeBuffer
-
         [Option]
         internal readonly BoolOption abortOnUnavailableFragment =
             new BoolOption("--abort-on-unavailable-fragment");
@@ -75,7 +72,8 @@ namespace NYoutubeDL.Options
 
         [Option] internal readonly FileSizeRateOption limitRate = new FileSizeRateOption("-r");
 
-        // [Option] internal readonly BoolOption noResizeBuffer = new BoolOption("--no-resize-buffer");
+        // Keeping this here even though it might not be required
+        [Option] internal readonly BoolOption noResizeBuffer = new BoolOption("--no-resize-buffer");
 
         [Option] internal readonly BoolOption playlistRandom = new BoolOption("--playlist-random");
 
@@ -186,6 +184,15 @@ namespace NYoutubeDL.Options
         {
             get => this.limitRate.Value;
             set => this.SetField(ref this.limitRate.Value, value);
+        }
+
+        /// <summary>
+        ///     --no-resize-buffer
+        /// </summary>
+        public bool NoResizeBuffer
+        {
+            get => this.noResizeBuffer.Value ?? false;
+            set => this.SetField(ref this.noResizeBuffer.Value, value);
         }
 
         /// <summary>
