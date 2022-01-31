@@ -31,6 +31,14 @@ namespace NYoutubeDL.Options
     /// </summary>
     public class Authentication : OptionSection
     {
+
+        // Not required:
+
+        // New:
+        // --netrc-location
+
+        // Adobe pass moved here
+
         [Option] internal readonly BoolOption netRc = new BoolOption("-n");
 
         [Option] internal readonly StringOption password = new StringOption("-p");
@@ -40,6 +48,16 @@ namespace NYoutubeDL.Options
         [Option] internal readonly StringOption username = new StringOption("-u");
 
         [Option] internal readonly StringOption videoPassword = new StringOption("--video-password");
+
+        [Option] internal readonly StringOption netRcLocation = new StringOption("--netrc-location");
+
+        [Option] internal readonly BoolOption adobePassListMso = new BoolOption("--ap-list-mso");
+
+        [Option] internal readonly StringOption adobePassMso = new StringOption("--ap-mso");
+
+        [Option] internal readonly StringOption adobePassPassword = new StringOption("--ap-password");
+
+        [Option] internal readonly StringOption adobePassUsername = new StringOption("--ap-username");
 
         /// <summary>
         ///     -n
@@ -84,6 +102,51 @@ namespace NYoutubeDL.Options
         {
             get => this.videoPassword.Value;
             set => this.SetField(ref this.videoPassword.Value, value);
+        }
+
+        /// <summary>
+        ///     --netrc-location
+        /// </summary>
+        public string NetRcLocation
+        {
+            get => this.netRcLocation.Value;
+            set => this.SetField(ref this.netRcLocation.Value, value);
+        }
+
+        /// <summary>
+        ///     --ap-list-mso
+        /// </summary>
+        public bool AdobePassListMso
+        {
+            get => this.adobePassListMso.Value ?? false;
+            set => this.SetField(ref this.adobePassListMso.Value, value);
+        }
+
+        /// <summary>
+        ///     --ap-mso
+        /// </summary>
+        public string AdobePassMso
+        {
+            get => this.adobePassMso.Value;
+            set => this.SetField(ref this.adobePassMso.Value, value);
+        }
+
+        /// <summary>
+        ///     --ap-password
+        /// </summary>
+        public string AdobePassPassword
+        {
+            get => this.adobePassPassword.Value;
+            set => this.SetField(ref this.adobePassPassword.Value, value);
+        }
+
+        /// <summary>
+        ///     --ap-username
+        /// </summary>
+        public string AdobePassUsername
+        {
+            get => this.adobePassUsername.Value;
+            set => this.SetField(ref this.adobePassUsername.Value, value);
         }
     }
 }

@@ -31,6 +31,34 @@ namespace NYoutubeDL.Options
     /// </summary>
     public class PostProcessing : OptionSection
     {
+
+        // Not Required:
+        // --no-keep-video
+        // --post-overwrites, the negative is the default
+        // --no-embed-subs
+        // --no-embed-thumbnail
+        // --no-add-metadata
+        // --no-embed-chapters
+        // --no-exec
+        // --exec-before-download
+        // --no-exec-before-download
+        // --no-split-chapters
+        // --no-remove-chapters
+        // --no-force-keyframes-at-cuts
+
+        // New:
+        // --remux-video string
+        // --embed-chapters
+        // --embed-info-json
+        // --parse-metadata string
+        // --replace-in-metadata string
+        // --concat-playlist string
+        // --convert-thumbnails string
+        // --split-chapters
+        // --remove-chapters string
+        // --force-keyframes-at-cuts
+        // --use-postprocessor string
+
         [Option] internal readonly BoolOption addMetadata = new BoolOption("--add-metadata");
 
         [Option]
@@ -74,6 +102,28 @@ namespace NYoutubeDL.Options
             new EnumOption<Enums.VideoFormat>("--recode-video");
 
         [Option] internal readonly BoolOption xattrs = new BoolOption("--xattrs");
+
+        [Option] internal readonly StringOption remuxVideo = new StringOption("--remux-video");
+
+        [Option] internal readonly BoolOption embedChapters = new BoolOption("--embed-chapters"); 
+
+        [Option] internal readonly BoolOption embedInfoJson = new BoolOption("--embed-info-json");
+
+        [Option] internal readonly StringOption parseMetadata = new StringOption("--parse-metdata");
+
+        [Option] internal readonly StringOption replaceInMetadata = new StringOption("--replace-in-metadata");
+
+        [Option] internal readonly StringOption concatPlaylist = new StringOption("--concat-playlist");
+
+        [Option] internal readonly StringOption convertThumbnails = new StringOption("--convert-thumbnails");
+
+        [Option] internal readonly BoolOption splitChapters = new BoolOption("--split-chapters");
+
+        [Option] internal readonly StringOption removeChapters = new StringOption("--remove-chapters");
+
+        [Option] internal readonly BoolOption forceKeyframesAtCuts = new BoolOption("--force-keyframes-at-cuts");
+
+        [Option] internal readonly StringOption usePostprocessor = new StringOption("--use-postprocessor");
 
         /// <summary>
         ///     --add-metadata
@@ -245,5 +295,72 @@ namespace NYoutubeDL.Options
             get => this.xattrs.Value ?? false;
             set => this.SetField(ref this.xattrs.Value, value);
         }
+
+        public string RemuxVideo 
+        {
+            get => this.remuxVideo.Value;
+            set => this.SetField(ref this.remuxVideo.Value, value);
+        }
+
+        public bool EmbedChapters
+        {
+            get => this.embedChapters.Value ?? false;
+            set => this.SetField(ref this.embedChapters.Value, value);
+        }
+
+        public bool EmbedInfoJson
+        {
+            get => this.embedInfoJson.Value ?? false;
+            set => this.SetField(ref this.embedInfoJson.Value, value);
+        }
+
+        public string ParseMetadata
+        {
+            get => this.parseMetadata.Value;
+            set => this.SetField(ref this.parseMetadata.Value, value);
+        }
+
+        public string ReplaceInMetadata
+        {
+            get => this.replaceInMetadata.Value;
+            set => this.SetField(ref this.replaceInMetadata.Value, value);
+        }
+
+        public string ConcatPlaylist 
+        {
+            get => this.concatPlaylist.Value;
+            set => this.SetField(ref this.concatPlaylist.Value, value);
+        }
+
+        public string ConvertThumbnails
+        {
+            get => this.convertThumbnails.Value;
+            set => this.SetField(ref this.convertThumbnails.Value, value);
+        }
+
+        public bool SplitChapters
+        {
+            get => this.splitChapters.Value ?? false;
+            set => this.SetField(ref this.splitChapters.Value, value);
+        }
+
+        public string RemoveChapters
+        {
+            get => this.removeChapters.Value;
+            set => this.SetField(ref this.removeChapters.Value, value);
+        }
+
+        public bool ForceKeyframeAtCuts 
+        {
+            get => this.forceKeyframesAtCuts.Value ?? false;
+            set => this.SetField(ref this.forceKeyframesAtCuts.Value, value);
+        }
+
+        public string UsePostprocessor
+        {
+            get => this.usePostprocessor.Value;
+            set => this.SetField(ref this.usePostprocessor.Value, value);
+        }
+
     }
 }

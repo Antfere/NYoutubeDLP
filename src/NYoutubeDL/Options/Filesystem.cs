@@ -32,6 +32,30 @@ namespace NYoutubeDL.Options
     /// </summary>
     public class Filesystem : OptionSection
     {
+        // Not Required:
+        // --no-restrict-filename
+        // --no-windows-filenames
+        // --no-force-overwrites
+        // --part because the --part flag flips the nopart boolean to false, but it is false by default aswell. Nopart is thus required instead.
+        // --no-write-description
+        // --no-write-info-json
+        // --no-write-annotations
+        // --no-write-playlist-metafiles
+        // --no-clean-infojson
+        // --no-get-comments
+        // --no-cookies
+        // --no-cookies-from-browser
+
+        // New:
+        // --paths string
+        // --windows-filenames
+        // --trim-filenames int
+        // --force-overwrites
+        // --write-playlist-metafiles
+        // --clean-infojson
+        // --get-comments
+        // --cookies-from-browser string
+
         [Option] internal readonly IntOption autoNumberSize = new IntOption("--autonumber-size");
 
         [Option] internal readonly IntOption autoNumberStart = new IntOption("--autonumber-start");
@@ -72,6 +96,22 @@ namespace NYoutubeDL.Options
         [Option] internal readonly BoolOption writeDescription = new BoolOption("--write-description");
 
         [Option] internal readonly BoolOption writeInfoJson = new BoolOption("--write-info-json");
+
+        [Option] internal readonly StringOption paths = new StringOption("--paths");
+
+        [Option] internal readonly BoolOption windowsFilenames = new BoolOption("--windows-filenames");
+
+        [Option] internal readonly IntOption trimFilenames = new IntOption("--trim-filenames");
+
+        [Option] internal readonly BoolOption forceOverwrites = new BoolOption("--force-overwrites");
+
+        [Option] internal readonly BoolOption writePlaylistMetafiles = new BoolOption("--write-playlist-metafiles");
+
+        [Option] internal readonly BoolOption cleanInfoJson = new BoolOption("--clean-infojson");
+
+        [Option] internal readonly BoolOption getComments = new BoolOption("--get-comments");
+
+        [Option] internal readonly StringOption cookiesFromBrowser = new StringOption("--cookies-from-browser");
 
         /// <summary>
         ///     --autonumber-size
@@ -243,5 +283,57 @@ namespace NYoutubeDL.Options
             get => this.writeInfoJson.Value ?? false;
             set => this.SetField(ref this.writeInfoJson.Value, value);
         }
+
+        /// <summary>
+        ///     -P, --paths
+        /// </summary>
+        public string Paths
+        {
+            get => this.paths.Value;
+            set => this.SetField(ref this.paths.Value, value);
+        }
+
+        public bool WindowsFilenames
+        {
+            get => this.windowsFilenames.Value ?? false;
+            set => this.SetField(ref this.windowsFilenames.Value, value);
+        }
+
+        public int TrimFilenames
+        {
+            get => this.trimFilenames.Value ?? 0;
+            set => this.SetField(ref this.trimFilenames.Value, value);
+        }
+
+        public bool ForceOverwrites
+        {
+            get => this.forceOverwrites.Value ?? false;
+            set => this.SetField(ref this.forceOverwrites.Value, value);
+        }
+
+        public bool WritePlaylistMetafiles
+        {
+            get => this.writePlaylistMetafiles.Value ?? false;
+            set => this.SetField(ref this.writePlaylistMetafiles.Value, value);
+        }
+
+        public bool CleanInfoJson
+        {
+            get => this.cleanInfoJson.Value ?? false;
+            set => this.SetField(ref this.cleanInfoJson.Value, value);
+        }
+
+        public bool GetComments
+        {
+            get => this.getComments.Value ?? false;
+            set => this.SetField(ref this.getComments.Value, value);
+        }
+
+        public string CookiesFromBrowser
+        {
+            get => this.cookiesFromBrowser.Value;
+            set => this.SetField(ref this.cookiesFromBrowser.Value, value);
+        }
+
     }
 }

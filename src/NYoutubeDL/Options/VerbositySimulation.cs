@@ -31,6 +31,18 @@ namespace NYoutubeDL.Options
     /// </summary>
     public class VerbositySimulation : OptionSection
     {
+
+        // Not Required:
+        // --no-simulate
+        // --no-ignore-no-formats-error
+
+        // New:
+        // --ignore-no-formats-error
+        // print string
+        // --force-write-download-archive
+        // --progress
+        // --progress-template string
+
         [Option] internal readonly BoolOption callHome = new BoolOption("-C");
 
         [Option] internal readonly BoolOption consoleTitle = new BoolOption("--console-title");
@@ -78,6 +90,16 @@ namespace NYoutubeDL.Options
         [Option] internal readonly BoolOption verbose = new BoolOption("-v");
 
         [Option] internal readonly BoolOption writePages = new BoolOption("--write-pages");
+
+        [Option] internal readonly BoolOption ignoreNoFormatsError = new BoolOption("--ignore-no-formats-error");
+
+        [Option] internal readonly StringOption print = new StringOption("--print");
+
+        [Option] internal readonly BoolOption forceWriteDownloadArchive = new BoolOption("--force-write-download-archive");
+
+        [Option] internal readonly BoolOption progress = new BoolOption("--progress");
+
+        [Option] internal readonly BoolOption progressTemplate = new BoolOption("--progress-template");
 
         /// <summary>
         ///     -C
@@ -293,6 +315,36 @@ namespace NYoutubeDL.Options
         {
             get => this.writePages.Value ?? false;
             set => this.SetField(ref this.writePages.Value, value);
+        }
+
+        public bool IgnoreNoFormatsError
+        {
+            get => this.ignoreNoFormatsError.Value ?? false;
+            set => this.SetField(ref this.ignoreNoFormatsError.Value, value);
+        }
+
+        public string Print
+        {
+            get => this.print.Value;
+            set => this.SetField(ref this.print.Value, value);
+        }
+
+        public bool ForceWriteDownloadArchive
+        {
+            get => this.forceWriteDownloadArchive.Value ?? false;
+            set => this.SetField(ref this.forceWriteDownloadArchive.Value, value);
+        }
+
+        public bool Progress
+        {
+            get => this.progress.Value ?? false;
+            set => this.SetField(ref this.progress.Value, value);
+        }
+
+        public string ProgressTemplate
+        {
+            get => this.progressTemplate.Value;
+            set => this.SetField(ref this.progressTemplate.Value, value);
         }
     }
 }

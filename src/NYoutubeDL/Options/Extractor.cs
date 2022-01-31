@@ -25,7 +25,6 @@ namespace NYoutubeDL.Options
         // --no-hls-split-discontinuity not required, positive option off by default.
 
         // Pass these arguments to the extractor. See "EXTRACTOR ARGUMENTS" for details.
-        // I don't think you can use this option multiple times to give arguments for different extractors currently, but I will implement a way later.
         [Option] internal readonly StringOption extractorArgs = new StringOption("--extractor-args");
 
         [Option] internal readonly BoolOption youtubeIncludeDashManifest = new BoolOption("--youtube-include-dash-manifest");

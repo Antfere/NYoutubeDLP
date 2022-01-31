@@ -26,6 +26,8 @@ namespace NYoutubeDL.Options
 
     #endregion
 
+    // Legacy, will keep here just case and monitor for conflicts with the identical entries in the Authentication otpions
+
     /// <summary>
     ///     Object containing Adobe Pass parameters
     /// </summary>

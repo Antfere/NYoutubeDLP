@@ -31,10 +31,31 @@ namespace NYoutubeDL.Options
     /// </summary>
     public class VideoFormat : OptionSection
     {
+
+        // Not required:
+        // --no-format-sort-force
+        // --no-video-multistreams
+        // --no-audio-multistreams
+        // --no-prefer-free-formats
+        // --no-check-formats
+        // --list-formats-as-table Default true
+        // --no-allow-unplayable-formats
+
+        // New:
+        // --format-sort string
+        // --format-sort-force bool
+        // --video-multistreams
+        // --audio-multistreams
+        // --check-formats string
+        // --check-all-formats
+        // --no-list-formats-as-table
+        // --allow-unplayable-formats
+
         [Option] internal readonly BoolOption allFormats = new BoolOption("--all-formats");
 
         [Option] internal readonly EnumOption<Enums.VideoFormat> format = new EnumOption<Enums.VideoFormat>("-f");
 
+        // Just use this advanced version, not sure what the enumOption is for
         [Option] internal readonly StringOption formatAdvanced = new StringOption("-f");
 
         [Option] internal readonly BoolOption listFormats = new BoolOption("-F");
@@ -46,6 +67,22 @@ namespace NYoutubeDL.Options
         [Option] internal readonly BoolOption preferFreeFormats = new BoolOption("--prefer-free-formats");
 
         [Option] internal readonly BoolOption youtubeSkipDashManifest = new BoolOption("--youtube-skip-dash-manifest");
+
+        [Option] internal readonly StringOption formatSort = new StringOption("--format-sort");
+
+        [Option] internal readonly BoolOption formatSortForce = new BoolOption("--format-sort-force");
+
+        [Option] internal readonly BoolOption videoMultistreams = new BoolOption("--video-multistreams");
+
+        [Option] internal readonly BoolOption audioMultistreams = new BoolOption("--audio-multistreams");
+
+        [Option] internal readonly StringOption checkFormats = new StringOption("--check-formats");
+
+        [Option] internal readonly BoolOption checkAllFormats = new BoolOption("--check-all-formats");
+
+        [Option] internal readonly BoolOption noListFormatsAsTable = new BoolOption("--no-list-formats-as-table");
+
+        [Option] internal readonly BoolOption allowUnplayableFormats = new BoolOption("--allow-unplayable-formats");
 
         /// <summary>
         ///     --all-formats
@@ -59,7 +96,7 @@ namespace NYoutubeDL.Options
         /// <summary>
         ///     This is a simple version of -f. For more advanced format usage, use the FormatAdvanced
         ///     property.
-        ///     NOTE: FormatAdvanced takes precedence over Format.
+        ///     NOTE: FormatAdvanced takes precedence over Format. Just use the advanced version...
         /// </summary>
         public Enums.VideoFormat Format
         {
@@ -114,6 +151,78 @@ namespace NYoutubeDL.Options
         {
             get => this.youtubeSkipDashManifest.Value ?? false;
             set => this.SetField(ref this.youtubeSkipDashManifest.Value, value);
+        }
+
+        /// <summary>
+        ///     --format-sort
+        /// </summary>
+        public string FormatSort
+        {
+            get => this.formatSort.Value;
+            set => this.SetField(ref this.formatSort.Value, value);
+        }
+
+        /// <summary>
+        ///     --format-sort-force
+        /// </summary>
+        public bool FormatSortForce
+        {
+            get => this.formatSortForce.Value ?? false;
+            set => this.SetField(ref this.formatSortForce.Value, value);
+        }
+
+        /// <summary>
+        ///     --video-multistreams
+        /// </summary>
+        public bool VideoMultistreams
+        {
+            get => this.videoMultistreams.Value ?? false;
+            set => this.SetField(ref this.videoMultistreams.Value, value);
+        }
+
+        /// <summary>
+        ///     --audio-multistreams
+        /// </summary>
+        public bool AudioMultistreams
+        {
+            get => this.audioMultistreams.Value ?? false;
+            set => this.SetField(ref this.audioMultistreams.Value, value);
+        }
+
+        /// <summary>
+        ///     --check-formats
+        /// </summary>
+        public string CheckFormats
+        {
+            get => this.checkFormats.Value;
+            set => this.SetField(ref this.checkFormats.Value, value);
+        }
+
+        /// <summary>
+        ///     --check-all-formats
+        /// </summary>
+        public bool CheckAllFormats
+        {
+            get => this.checkAllFormats.Value ?? false;
+            set => this.SetField(ref this.checkAllFormats.Value, value);
+        }
+
+        /// <summary>
+        ///     --no-list-formats-as-table
+        /// </summary>
+        public bool NoListFormatsAsTable
+        {
+            get => this.noListFormatsAsTable.Value ?? false;
+            set => this.SetField(ref this.noListFormatsAsTable.Value, value);
+        }
+
+        /// <summary>
+        ///     --allow-unplayable-formats
+        /// </summary>
+        public bool AllowUnplayableFormats
+        {
+            get => this.allowUnplayableFormats.Value ?? false;
+            set => this.SetField(ref this.allowUnplayableFormats.Value, value);
         }
 
         public override string ToCliParameters()

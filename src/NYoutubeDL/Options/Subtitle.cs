@@ -31,6 +31,10 @@ namespace NYoutubeDL.Options
     /// </summary>
     public class Subtitle : OptionSection
     {
+        // Not required:
+        // --no-write-subs
+        // --no-write-auto-subs
+
         [Option] internal readonly BoolOption allSubs = new BoolOption("--all-subs");
 
         [Option] internal readonly BoolOption listsubs = new BoolOption("--list-subs");
@@ -68,7 +72,7 @@ namespace NYoutubeDL.Options
         /// <summary>
         ///     This is a simple version of --sub-format. For more advanced format usage, use the SubFormatAdvanced
         ///     property.
-        ///     NOTE: SubFormatAdvanced takes precedence over SubFormat.
+        ///     NOTE: SubFormatAdvanced takes precedence over SubFormat. Just use the advanced version...
         /// </summary>
         public Enums.SubtitleFormat SubFormat
         {
@@ -80,7 +84,7 @@ namespace NYoutubeDL.Options
 
         /// <summary>
         ///     This accepts a string matching the advanced --sub-format according to the youtube-dl documentation below.
-        ///     NOTE: SubFormatAdvanced takess precedence over SubFormat.
+        ///     NOTE: SubFormatAdvanced takess precedence over SubFormat. Just use the advanced version...
         ///     <see cref="https://github.com/rg3/youtube-dl/blob/master/README.md#subtitle-options" />
         /// </summary>
         public string SubFormatAdvanced

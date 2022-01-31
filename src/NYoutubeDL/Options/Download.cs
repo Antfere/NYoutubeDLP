@@ -31,16 +31,36 @@ namespace NYoutubeDL.Options
     /// </summary>
     public class Download : OptionSection
     {
+
+        // Not required:
+        // --no-keep-fragments
+        // --no-playlist-reverse
+        // --no-hls-use-mpegts
+
+        // New:
+        // --concurrent-fragments int
+        // --throttled-rate string
+        // --file-access-retries string
+        // --resize-buffer
+        // externalDownloaderAdvanced string
+
+        // Removed:
+        // noResizeBuffer
+
         [Option]
         internal readonly BoolOption abortOnUnavailableFragment =
             new BoolOption("--abort-on-unavailable-fragment");
 
         [Option] internal readonly FileSizeRateOption bufferSize = new FileSizeRateOption("--buffer-size");
 
+        // I have no clue what his enum meme is about, string option below.
         [Option]
         internal readonly EnumOption<Enums.ExternalDownloader> externalDownloader =
             new EnumOption<Enums.ExternalDownloader>("--external-downloader");
 
+        [Option] internal readonly StringOption externalDownloaderAdvanced = new StringOption("--external-downloader");
+
+        // Format it like this: --downloader-args ffmpeg:xxx --downloader-args aria2c:yyy
         [Option] internal readonly StringOption externalDownloaderArgs = new StringOption("--external-downloader-args");
 
         [Option] internal readonly IntOption fragmentRetries = new IntOption("--fragment-retries", true);
@@ -55,7 +75,7 @@ namespace NYoutubeDL.Options
 
         [Option] internal readonly FileSizeRateOption limitRate = new FileSizeRateOption("-r");
 
-        [Option] internal readonly BoolOption noResizeBuffer = new BoolOption("--no-resize-buffer");
+        // [Option] internal readonly BoolOption noResizeBuffer = new BoolOption("--no-resize-buffer");
 
         [Option] internal readonly BoolOption playlistRandom = new BoolOption("--playlist-random");
 
@@ -66,6 +86,14 @@ namespace NYoutubeDL.Options
         [Option] internal readonly BoolOption skipUnavailableFragments = new BoolOption("--skip-unavailable-fragments");
 
         [Option] internal readonly BoolOption xattrSetFilesize = new BoolOption("--xattr-set-filesize");
+
+        [Option] internal readonly IntOption concurrentFragments = new IntOption("--concurrent-fragments");
+
+        [Option] internal readonly StringOption throttledRate = new StringOption("--throttled-rate");
+
+        [Option] internal readonly StringOption fileAccessRetries = new StringOption("--fille-access-retries");
+
+        [Option] internal readonly BoolOption resizeBuffer = new BoolOption("--resize-buffer");
 
         /// <summary>
         ///     --abort-on-unavailable-fragment
@@ -94,6 +122,16 @@ namespace NYoutubeDL.Options
                 ? Enums.ExternalDownloader.undefined
                 : (Enums.ExternalDownloader)this.externalDownloader.Value;
             set => this.SetField(ref this.externalDownloader.Value, (int)value);
+        }
+
+        /// <summary>
+        /// --external-downloader
+        /// NOTE: ExternalDownloaderAdvanced takes precedence over ExternalDownloader. Just use this and type in the string manually instead of using the basic enum option.
+        ///  <summary>
+        public string ExternalDownloaderAdvanced
+        {
+            get => this.externalDownloaderAdvanced.Value;
+            set => this.SetField(ref this.externalDownloaderAdvanced.Value, value);)
         }
 
         /// <summary>
@@ -151,15 +189,6 @@ namespace NYoutubeDL.Options
         }
 
         /// <summary>
-        ///     --no-resize-buffer
-        /// </summary>
-        public bool NoResizeBuffer
-        {
-            get => this.noResizeBuffer.Value ?? false;
-            set => this.SetField(ref this.noResizeBuffer.Value, value);
-        }
-
-        /// <summary>
         ///     --playlist-random
         /// </summary>
         public bool PlaylistRandom
@@ -211,6 +240,30 @@ namespace NYoutubeDL.Options
         {
             get => this.httpChunkSize.Value;
             set => this.SetField(ref this.httpChunkSize.Value, value);
+        }
+
+        public int ConcurrentFragments
+        {
+            get => this.concurrentFragments.Value ?? 1;
+            set => this.SetField(ref this.concurrentFragments.Value, value);
+        }
+
+        public string ThrottledRate
+        {
+            get => this.throttledRate.Value;
+            set => this.SetField(ref this.throttledRate.Value, value);
+        }
+
+        public string FileAccessRetries
+        {
+            get => this.fileAccessRetries.Value;
+            set => this.SetField(ref this.fileAccessRetries.Value, value);
+        }
+
+        public bool ResizeBuffer
+        {
+            get => this.resizeBuffer.Value ?? false;
+            set => this.SetField(ref this.resizeBuffer.Value, value);
         }
     }
 }

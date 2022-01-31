@@ -31,11 +31,17 @@ namespace NYoutubeDL.Options
     /// </summary>
     public class ThumbnailImages : OptionSection
     {
+
+        // New:
+        // --no-write-thumbnail
+
         [Option] internal readonly BoolOption listThumbnails = new BoolOption("--list-thumbnail");
 
         [Option] internal readonly BoolOption writeAllThumbnails = new BoolOption("--write-all-thumbnails");
 
         [Option] internal readonly BoolOption writeThumbnail = new BoolOption("--write-thumbnail");
+
+        [Option] internal readonly BoolOption noWriteThumbnail = new BoolOption("--no-write-thumbnail");
 
         /// <summary>
         ///     --list-thumbnails
@@ -62,6 +68,12 @@ namespace NYoutubeDL.Options
         {
             get => this.writeThumbnail.Value ?? false;
             set => this.SetField(ref this.writeThumbnail.Value, value);
+        }
+
+        public bool NoWriteThumbnail
+        {
+            get => this.noWriteThumbnail.Value ?? false;
+            set => this.SetField(ref this.noWriteThumbnail.Value, value);
         }
     }
 }

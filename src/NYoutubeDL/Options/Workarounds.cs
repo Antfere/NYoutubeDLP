@@ -32,6 +32,11 @@ namespace NYoutubeDL.Options
     /// </summary>
     public class Workarounds : OptionSection
     {
+
+        // New:
+        // --sleep-requests int
+        // --sleep-subtitles int
+
         [Option] internal readonly BoolOption biDiWorkaround = new BoolOption("--bidi-workaround");
 
         [Option] internal readonly StringOption encoding = new StringOption("--encoding");
@@ -49,6 +54,10 @@ namespace NYoutubeDL.Options
         [Option] internal readonly IntOption sleepInterval = new IntOption("--sleep-interval");
 
         [Option] internal readonly StringOption userAgent = new StringOption("--user-agent");
+
+        [Option] internal readonly IntOption sleepRequests = new IntOption("--sleep-requests");
+
+        [Option] internal readonly IntOption sleepSubtitles = new IntOption("--sleep-subtitles");
 
         /// <summary>
         ///     --bidi-workaround
@@ -120,6 +129,18 @@ namespace NYoutubeDL.Options
         {
             get => this.userAgent.Value;
             set => this.SetField(ref this.userAgent.Value, value);
+        }
+
+        public int SleepRequests
+        {
+            get => this.sleepRequests.Value ?? 0;
+            set => this.SetField(ref this.sleepRequests.Value, value);
+        }
+
+        public int SleepSubtitles
+        {
+            get => this.sleepSubtitles.Value ?? -1;
+            set => this.SetField(ref this.sleepSubtitles.Value, value);
         }
 
         /// <summary>

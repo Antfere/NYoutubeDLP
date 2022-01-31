@@ -32,6 +32,19 @@ namespace NYoutubeDL.Options
     /// </summary>
     public class VideoSelection : OptionSection
     {
+
+        // Not required:
+        // --no-match-filter
+        // --no-download-archive
+        // --no-break-per-input
+        // --no-include-ads
+
+        // New:
+        // --break-on-existing
+        // --break-on-reject
+        // --break-per-input
+        // --skip-playlist-after-errors
+
         [Option] internal readonly IntOption ageLimit = new IntOption("--age-limit");
 
         [Option] internal readonly DateTimeOption date = new DateTimeOption("--date");
@@ -69,6 +82,14 @@ namespace NYoutubeDL.Options
         [Option] internal readonly StringOption rejectTitle = new StringOption("--reject-title");
 
         [Option] internal readonly BoolOption yesPlaylist = new BoolOption("--yes-playlist");
+
+        [Option] internal readonly BoolOption breakOnExisting = new BoolOption("--break-on-existing");
+
+        [Option] internal readonly BoolOption breakOnReject = new BoolOption("--break-on-reject");
+
+        [Option] internal readonly BoolOption breakPerInput = new BoolOption("--break-per-input");
+
+        [Option] internal readonly IntOption skipPlaylistAfterErrors = new IntOption("--skip-playlist-after-errors");
 
         /// <summary>
         ///     --age-limit
@@ -241,5 +262,42 @@ namespace NYoutubeDL.Options
             get => this.yesPlaylist.Value ?? false;
             set => this.SetField(ref this.yesPlaylist.Value, value);
         }
+
+        /// <summary>
+        ///     --break-on-existing
+        /// </summary>
+        public bool BreakOnExisting
+        {
+            get => this.breakOnExisting.Value ?? false;
+            set => this.SetField(ref this.breakOnExisting.Value, value);
+        }
+
+        /// <summary>
+        ///     --break-on-reject
+        /// </summary>
+        public bool BreakOnReject
+        {
+            get => this.breakOnReject.Value ?? false;
+            set => this.SetField(ref this.breakOnReject.Value, value);
+        }
+
+        /// <summary>
+        ///     --break-per-input
+        /// </summary>
+        public bool BreakPerInput
+        {
+            get => this.breakPerInput.Value ?? false;
+            set => this.SetField(ref this.breakPerInput.Value, value);
+        }
+
+        /// <summary>
+        ///     --skip-playlist-after-errors
+        /// </summary>
+        public int SkipPlaylistAfterErrors
+        {
+            get => this.skipPlaylistAfterErrors.Value ?? -1;
+            set => this.SetField(ref this.skipPlaylistAfterErrors.Value, value);
+        }
+
     }
 }

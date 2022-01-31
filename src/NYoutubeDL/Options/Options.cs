@@ -62,7 +62,6 @@ namespace NYoutubeDL.Options
         public Workarounds WorkaroundsOptions { get; private set; } = new Workarounds();
 
         // New
-
         public Extractor ExtractorOptions { get; private set;} = new Extractor();
 
         public SponsorBlock SponsorBlockOptions { get; private set;} = new SponsorBlock();
