@@ -99,7 +99,7 @@ namespace NYoutubeDL.Options
 
         [Option] internal readonly BoolOption progress = new BoolOption("--progress");
 
-        [Option] internal readonly BoolOption progressTemplate = new BoolOption("--progress-template");
+        [Option] internal readonly StringOption progressTemplate = new StringOption("--progress-template");
 
         /// <summary>
         ///     -C

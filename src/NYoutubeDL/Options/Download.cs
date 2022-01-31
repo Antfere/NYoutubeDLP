@@ -129,7 +129,7 @@ namespace NYoutubeDL.Options
         public string ExternalDownloaderAdvanced
         {
             get => this.externalDownloaderAdvanced.Value;
-            set => this.SetField(ref this.externalDownloaderAdvanced.Value, value);)
+            set => this.SetField(ref this.externalDownloaderAdvanced.Value, value);
         }
 
         /// <summary>
