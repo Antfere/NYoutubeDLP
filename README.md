@@ -5,7 +5,30 @@ Nuget package here: https://www.nuget.org/packages/NYoutubeDLP/
 
 All credit goes to the original Nyoutube-dl wrapper by Brian Allred which can be found on Gitlab here: https://gitlab.com/BrianAllred/NYoutubeDL
 
-Every thing below this is the original readme from Nyoutube-dl, all the usage info is the same, you just need youtube-dlp instead of youtube-dl
+Usage is the exact same except you instantiate the class with "NyoutubeDLP();" like so:
+        
+        // Old way
+        var youtubeDl = new YoutubeDL();
+        
+        // New way
+        var youtubeDl = new YoutubeDLP();
+
+Everything else including the "using NYoutubeDL;" statement are the same, you will just be using yt-dlp instead provided it is installed in your path or you point to it in your program directly.
+
+For directing playlist downloads to an output directory you can use the following workaround:
+
+        // You need to prepare the playlist download like so, to be able to get the playlist info
+        youtubeDl.VideoUrl = url;
+        youtubeDl.PrepareDownload();
+
+        for (int i = 0; i < ((NYoutubeDL.Models.PlaylistDownloadInfo)youtubeDl.Info).Videos.Count; i++)
+        {
+            youtubeDl.Options.FilesystemOptions.Output = _workingDirPath + "Playlist - " + youtubeDl.Info.Title + "\\Video - " + i;
+            youtubeDl.Options.VideoSelectionOptions.PlaylistItems = (i+1).ToString();
+            await youtubeDl.DownloadAsync(url);
+        }
+
+Every thing below this is the original readme from Nyoutube-dl:
 # NYoutubeDL
 
 [![pipeline status](https://gitlab.com/BrianAllred/NYoutubeDL/badges/master/pipeline.svg)](https://gitlab.com/BrianAllred/NYoutubeDL/commits/master)
