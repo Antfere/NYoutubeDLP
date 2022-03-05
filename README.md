@@ -1,4 +1,4 @@
-Works with youtube-dlp now after changing 2 lines. Current version has all the new options included in the 2022.01.21 release of youtube-dlp, I intend to maintain the options with updates/fixes.
+Works with youtube-dlp now after changing 2 lines. Current version has all the new options included as of the 2022.03.05 version of youtube-dlp, I intend to maintain the options with updates/fixes.
 
 Youtube-dlp can be found here: https://github.com/yt-dlp/yt-dlp
 
