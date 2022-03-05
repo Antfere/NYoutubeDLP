@@ -43,6 +43,8 @@ namespace NYoutubeDL.Options
         // --progress
         // --progress-template string
 
+        // --print-to-file string
+
         [Option] internal readonly BoolOption callHome = new BoolOption("-C");
 
         [Option] internal readonly BoolOption consoleTitle = new BoolOption("--console-title");
@@ -100,6 +102,8 @@ namespace NYoutubeDL.Options
         [Option] internal readonly BoolOption progress = new BoolOption("--progress");
 
         [Option] internal readonly StringOption progressTemplate = new StringOption("--progress-template");
+
+        [Option] internal readonly StringOption printToFile = new StringOption("--print-to-file");
 
         /// <summary>
         ///     -C
@@ -317,34 +321,58 @@ namespace NYoutubeDL.Options
             set => this.SetField(ref this.writePages.Value, value);
         }
 
+        /// <summary>
+        ///     --ignore-no-formats-error
+        /// </summary>
         public bool IgnoreNoFormatsError
         {
             get => this.ignoreNoFormatsError.Value ?? false;
             set => this.SetField(ref this.ignoreNoFormatsError.Value, value);
         }
 
+        /// <summary>
+        ///     --print
+        /// </summary>
         public string Print
         {
             get => this.print.Value;
             set => this.SetField(ref this.print.Value, value);
         }
 
+        /// <summary>
+        ///     --force-write-download-archive
+        /// </summary>
         public bool ForceWriteDownloadArchive
         {
             get => this.forceWriteDownloadArchive.Value ?? false;
             set => this.SetField(ref this.forceWriteDownloadArchive.Value, value);
         }
 
+        /// <summary>
+        ///     --progress
+        /// </summary>
         public bool Progress
         {
             get => this.progress.Value ?? false;
             set => this.SetField(ref this.progress.Value, value);
         }
 
+        /// <summary>
+        ///     --progress-template
+        /// </summary>
         public string ProgressTemplate
         {
             get => this.progressTemplate.Value;
             set => this.SetField(ref this.progressTemplate.Value, value);
+        }
+
+        /// <summary>
+        ///     --print-to-file
+        /// </summary>
+        public string PrintToFile
+        {
+            get => this.printToFile.Value;
+            set => this.SetField(ref this.printToFile.Value, value);
         }
     }
 }

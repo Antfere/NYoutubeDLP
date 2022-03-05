@@ -249,24 +249,36 @@ namespace NYoutubeDL.Options
             set => this.SetField(ref this.httpChunkSize.Value, value);
         }
 
+        /// <summary>
+        ///     --concurrent-fragments
+        /// </summary>
         public int ConcurrentFragments
         {
             get => this.concurrentFragments.Value ?? 1;
             set => this.SetField(ref this.concurrentFragments.Value, value);
         }
 
+        /// <summary>
+        ///     --throttled-rate
+        /// </summary>
         public string ThrottledRate
         {
             get => this.throttledRate.Value;
             set => this.SetField(ref this.throttledRate.Value, value);
         }
 
+        /// <summary>
+        ///     --file-access-retries
+        /// </summary>
         public string FileAccessRetries
         {
             get => this.fileAccessRetries.Value;
             set => this.SetField(ref this.fileAccessRetries.Value, value);
         }
 
+        /// <summary>
+        ///     --resize-buffer
+        /// </summary>
         public bool ResizeBuffer
         {
             get => this.resizeBuffer.Value ?? false;

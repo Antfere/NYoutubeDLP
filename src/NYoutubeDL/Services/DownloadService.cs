@@ -27,6 +27,8 @@ namespace NYoutubeDL.Services
     using System.Threading;
     using System.Threading.Tasks;
     using Helpers;
+    using System.Text;
+    using System.IO;
 
     #endregion
 

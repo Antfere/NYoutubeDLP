@@ -70,6 +70,9 @@ namespace NYoutubeDL.Options
             set => this.SetField(ref this.writeThumbnail.Value, value);
         }
 
+        /// <summary>
+        ///     --no-write-thumbnail
+        /// </summary>
         public bool NoWriteThumbnail
         {
             get => this.noWriteThumbnail.Value ?? false;

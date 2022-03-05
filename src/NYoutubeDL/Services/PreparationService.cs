@@ -135,10 +135,13 @@ namespace NYoutubeDL.Services
             {
                 FileName = ydl.YoutubeDlPath,
                 Arguments = arguments,
-                CreateNoWindow = true,
+                // Changed CreateNoWindow to false
+                CreateNoWindow = false,
                 RedirectStandardError = true,
                 RedirectStandardOutput = true,
-                UseShellExecute = false
+                UseShellExecute = false,
+                // Force StandardOutputEncoding to UTF8
+                StandardOutputEncoding = System.Text.Encoding.UTF8
             };
 
             if (!string.IsNullOrWhiteSpace(ydl.PythonPath))

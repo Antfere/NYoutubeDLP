@@ -131,12 +131,18 @@ namespace NYoutubeDL.Options
             set => this.SetField(ref this.userAgent.Value, value);
         }
 
+        /// <summary>
+        ///     -sleep-request
+        /// </summary>
         public int SleepRequests
         {
             get => this.sleepRequests.Value ?? 0;
             set => this.SetField(ref this.sleepRequests.Value, value);
         }
 
+        /// <summary>
+        ///     -sleep-subtitles
+        /// </summary>
         public int SleepSubtitles
         {
             get => this.sleepSubtitles.Value ?? -1;

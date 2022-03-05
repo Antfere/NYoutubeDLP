@@ -293,42 +293,63 @@ namespace NYoutubeDL.Options
             set => this.SetField(ref this.paths.Value, value);
         }
 
+        /// <summary>
+        ///     --windows-filenames
+        /// </summary>
         public bool WindowsFilenames
         {
             get => this.windowsFilenames.Value ?? false;
             set => this.SetField(ref this.windowsFilenames.Value, value);
         }
 
+        /// <summary>
+        ///     --trim-filenames
+        /// </summary>
         public int TrimFilenames
         {
             get => this.trimFilenames.Value ?? 0;
             set => this.SetField(ref this.trimFilenames.Value, value);
         }
 
+        /// <summary>
+        ///     --force-overwrites
+        /// </summary>
         public bool ForceOverwrites
         {
             get => this.forceOverwrites.Value ?? false;
             set => this.SetField(ref this.forceOverwrites.Value, value);
         }
 
+        /// <summary>
+        ///     --write-playlist-metafiles
+        /// </summary>
         public bool WritePlaylistMetafiles
         {
             get => this.writePlaylistMetafiles.Value ?? false;
             set => this.SetField(ref this.writePlaylistMetafiles.Value, value);
         }
 
+        /// <summary>
+        ///     --clean-infojson
+        /// </summary>
         public bool CleanInfoJson
         {
             get => this.cleanInfoJson.Value ?? false;
             set => this.SetField(ref this.cleanInfoJson.Value, value);
         }
 
+        /// <summary>
+        ///     --get-comments
+        /// </summary>
         public bool GetComments
         {
             get => this.getComments.Value ?? false;
             set => this.SetField(ref this.getComments.Value, value);
         }
 
+        /// <summary>
+        ///     --cookies-from-browser
+        /// </summary>
         public string CookiesFromBrowser
         {
             get => this.cookiesFromBrowser.Value;

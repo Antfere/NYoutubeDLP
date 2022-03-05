@@ -28,6 +28,7 @@ namespace NYoutubeDL
     using System.IO;
     using System.Threading;
     using System.Threading.Tasks;
+    using System.Text;
     using Helpers;
     using Models;
     using Services;
@@ -43,6 +44,7 @@ namespace NYoutubeDL
     /// </summary>
     public class YoutubeDLP
     {
+
         /// <summary>
         ///     The semaphore
         /// </summary>
@@ -92,6 +94,8 @@ namespace NYoutubeDL
         /// </summary>
         public YoutubeDLP()
         {
+            
+            
             downloadTokenSource = new CancellationTokenSource();
         }
 

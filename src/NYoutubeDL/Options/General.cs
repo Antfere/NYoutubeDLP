@@ -38,6 +38,11 @@ namespace NYoutubeDL.Options
         // --no-live-from-start
         // --no-wait-for-video
 
+        //  new:
+        // --live-from-start
+        // --wait-for-video int
+        // --compat-options string
+
         [Option] internal readonly BoolOption abortOnError = new BoolOption("--abort-on-error");
 
         [Option] internal readonly StringOption configLocation = new StringOption("--config-location");
@@ -68,11 +73,6 @@ namespace NYoutubeDL.Options
         [Option] internal readonly BoolOption update = new BoolOption("-U");
 
         [Option] internal readonly BoolOption version = new BoolOption("--version");
-
-        //  new:
-        // --live-from-start
-        // --wait-for-video
-        // --compat-options
 
         [Option] internal readonly BoolOption liveFromStart = new BoolOption("--live-from-start");
 

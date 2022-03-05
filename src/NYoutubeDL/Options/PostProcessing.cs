@@ -296,66 +296,99 @@ namespace NYoutubeDL.Options
             set => this.SetField(ref this.xattrs.Value, value);
         }
 
+        /// <summary>
+        ///     --remux-video
+        /// </summary>
         public string RemuxVideo 
         {
             get => this.remuxVideo.Value;
             set => this.SetField(ref this.remuxVideo.Value, value);
         }
 
+        /// <summary>
+        ///     --embed-chapters
+        /// </summary>
         public bool EmbedChapters
         {
             get => this.embedChapters.Value ?? false;
             set => this.SetField(ref this.embedChapters.Value, value);
         }
 
+        /// <summary>
+        ///     --embed-info-json
+        /// </summary>
         public bool EmbedInfoJson
         {
             get => this.embedInfoJson.Value ?? false;
             set => this.SetField(ref this.embedInfoJson.Value, value);
         }
 
+        /// <summary>
+        ///     --parse-metadata
+        /// </summary>
         public string ParseMetadata
         {
             get => this.parseMetadata.Value;
             set => this.SetField(ref this.parseMetadata.Value, value);
         }
 
+        /// <summary>
+        ///     --replace-in-metadata
+        /// </summary>
         public string ReplaceInMetadata
         {
             get => this.replaceInMetadata.Value;
             set => this.SetField(ref this.replaceInMetadata.Value, value);
         }
 
+        /// <summary>
+        ///     --concat-playlist
+        /// </summary>
         public string ConcatPlaylist 
         {
             get => this.concatPlaylist.Value;
             set => this.SetField(ref this.concatPlaylist.Value, value);
         }
 
+        /// <summary>
+        ///     --convert-thumbnails
+        /// </summary>
         public string ConvertThumbnails
         {
             get => this.convertThumbnails.Value;
             set => this.SetField(ref this.convertThumbnails.Value, value);
         }
 
+        /// <summary>
+        ///     --split-chapters
+        /// </summary>
         public bool SplitChapters
         {
             get => this.splitChapters.Value ?? false;
             set => this.SetField(ref this.splitChapters.Value, value);
         }
 
+        /// <summary>
+        ///     --remove-chapters
+        /// </summary>
         public string RemoveChapters
         {
             get => this.removeChapters.Value;
             set => this.SetField(ref this.removeChapters.Value, value);
         }
 
+        /// <summary>
+        ///     --force-keyframes-at-cuts
+        /// </summary>
         public bool ForceKeyframeAtCuts 
         {
             get => this.forceKeyframesAtCuts.Value ?? false;
             set => this.SetField(ref this.forceKeyframesAtCuts.Value, value);
         }
 
+        /// <summary>
+        ///     --use-postprocessor
+        /// </summary>
         public string UsePostprocessor
         {
             get => this.usePostprocessor.Value;
