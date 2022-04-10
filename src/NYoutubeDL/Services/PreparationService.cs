@@ -135,8 +135,7 @@ namespace NYoutubeDL.Services
             {
                 FileName = ydl.YoutubeDlPath,
                 Arguments = arguments,
-                // Changed CreateNoWindow to false
-                CreateNoWindow = false,
+                CreateNoWindow = true,
                 RedirectStandardError = true,
                 RedirectStandardOutput = true,
                 UseShellExecute = false,
