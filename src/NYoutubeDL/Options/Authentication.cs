@@ -36,6 +36,9 @@ namespace NYoutubeDL.Options
 
         // New:
         // --netrc-location
+        // --client-certificate
+        // --client-certificate-key
+        // --client-certificate-password
 
         // Adobe pass moved here
 
@@ -58,6 +61,10 @@ namespace NYoutubeDL.Options
         [Option] internal readonly StringOption adobePassPassword = new StringOption("--ap-password");
 
         [Option] internal readonly StringOption adobePassUsername = new StringOption("--ap-username");
+
+        [Option] internal readonly StringOption clientCertificate = new StringOption("--client-certificate");
+        [Option] internal readonly StringOption clientCertificateKey = new StringOption("--client-certificate-key");
+        [Option] internal readonly StringOption clientCertificatePassword = new StringOption("--client-certificate-password");
 
         /// <summary>
         ///     -n
@@ -148,5 +155,33 @@ namespace NYoutubeDL.Options
             get => this.adobePassUsername.Value;
             set => this.SetField(ref this.adobePassUsername.Value, value);
         }
+
+        /// <summary>
+        ///     --client-certificate
+        /// </summary>
+        public string ClientCertificate
+        {
+            get => this.clientCertificate.Value;
+            set => this.SetField(ref this.clientCertificate.Value, value);
+        }
+
+        /// <summary>
+        ///     --client-certificate-key
+        /// </summary>
+        public string ClientCertificateKey
+        {
+            get => this.clientCertificateKey.Value;
+            set => this.SetField(ref this.clientCertificateKey.Value, value);
+        }
+
+        /// <summary>
+        ///     --client-certificate-password
+        /// </summary>
+        public string ClientCertificatePassword
+        {
+            get => this.clientCertificatePassword.Value;
+            set => this.SetField(ref this.clientCertificatePassword.Value, value);
+        }
+
     }
 }

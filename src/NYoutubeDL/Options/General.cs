@@ -42,6 +42,7 @@ namespace NYoutubeDL.Options
         // --live-from-start
         // --wait-for-video int
         // --compat-options string
+        // --no-update
 
         [Option] internal readonly BoolOption abortOnError = new BoolOption("--abort-on-error");
 
@@ -79,6 +80,11 @@ namespace NYoutubeDL.Options
         [Option] internal readonly IntOption waitForVideo = new IntOption("--wait-for-video");
 
         [Option] internal readonly StringOption compatOptions = new StringOption("--compat-options");
+
+        // For scripting purposes
+        [Option] internal readonly BoolOption noUpdate = new BoolOption("--no-update");
+
+        [Option] internal readonly StringOption alias = new StringOption("--alias");
 
         /// <summary>
         ///     --abort-on-error
@@ -213,6 +219,25 @@ namespace NYoutubeDL.Options
         {
             get => this.version.Value ?? false;
             set => this.SetField(ref this.version.Value, value);
+        }
+
+        /// <summary>
+        ///     --no-update
+        /// </summary>
+
+        public bool NoUpdate
+        {
+            get => this.noUpdate.Value ?? false;
+            set => this.SetField(ref this.noUpdate.Value, value);
+        }
+
+        /// <summary>
+        ///     --alias
+        /// </summary>
+        public string Alias
+        {
+            get => this.alias.Value;
+            set => this.SetField(ref this.alias.Value, value);
         }
     }
 }

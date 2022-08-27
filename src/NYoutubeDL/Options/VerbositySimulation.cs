@@ -45,6 +45,8 @@ namespace NYoutubeDL.Options
 
         // --print-to-file string
 
+        // --load-pages
+
         [Option] internal readonly BoolOption callHome = new BoolOption("-C");
 
         [Option] internal readonly BoolOption consoleTitle = new BoolOption("--console-title");
@@ -104,6 +106,8 @@ namespace NYoutubeDL.Options
         [Option] internal readonly StringOption progressTemplate = new StringOption("--progress-template");
 
         [Option] internal readonly StringOption printToFile = new StringOption("--print-to-file");
+
+        [Option] internal readonly BoolOption loadPages = new BoolOption("--load-pages");
 
         /// <summary>
         ///     -C
@@ -373,6 +377,15 @@ namespace NYoutubeDL.Options
         {
             get => this.printToFile.Value;
             set => this.SetField(ref this.printToFile.Value, value);
+        }
+
+        /// <summary>
+        ///     --load-pages
+        /// </summary>
+        public bool LoadPages
+        {
+            get => this.loadPages.Value ?? false;
+            set => this.SetField(ref this.loadPages.Value, value);
         }
     }
 }

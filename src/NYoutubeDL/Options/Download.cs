@@ -43,6 +43,10 @@ namespace NYoutubeDL.Options
         // --file-access-retries string
         // --resize-buffer
         // externalDownloaderAdvanced string
+        // --retry-sleep
+        // --lazy-playlist
+        // --no-lazy-playlist
+        // --download-sections
 
         [Option]
         internal readonly BoolOption abortOnUnavailableFragment =
@@ -89,9 +93,16 @@ namespace NYoutubeDL.Options
 
         [Option] internal readonly StringOption throttledRate = new StringOption("--throttled-rate");
 
-        [Option] internal readonly StringOption fileAccessRetries = new StringOption("--fille-access-retries");
+        [Option] internal readonly StringOption fileAccessRetries = new StringOption("--file-access-retries");
 
         [Option] internal readonly BoolOption resizeBuffer = new BoolOption("--resize-buffer");
+
+        [Option] internal readonly StringOption retrySleep = new StringOption("--retry-sleep");
+
+        [Option] internal readonly BoolOption lazyPlaylist = new BoolOption("--lazy-playlist");
+        [Option] internal readonly BoolOption noLazyPlaylist = new BoolOption("--no-lazy-playlist");
+
+        [Option] internal readonly StringOption downloadSections = new StringOption("--download-sections");
 
         /// <summary>
         ///     --abort-on-unavailable-fragment
@@ -283,6 +294,42 @@ namespace NYoutubeDL.Options
         {
             get => this.resizeBuffer.Value ?? false;
             set => this.SetField(ref this.resizeBuffer.Value, value);
+        }
+
+        /// <summary>
+        ///     --retry-sleep
+        /// </summary>
+        public string RetrySleep
+        {
+            get => this.retrySleep.Value;
+            set => this.SetField(ref this.retrySleep.Value, value);
+        }
+
+        /// <summary>
+        ///     --lazy-playlist
+        /// </summary>
+        public bool LazyPlaylist
+        {
+            get => this.lazyPlaylist.Value ?? false;
+            set => this.SetField(ref this.lazyPlaylist.Value, value);
+        }
+
+        /// <summary>
+        ///     --no-lazy-playlist
+        /// </summary>
+        public bool NoLazyPlaylist
+        {
+            get => this.noLazyPlaylist.Value ?? false;
+            set => this.SetField(ref this.noLazyPlaylist.Value, value);
+        }
+
+        /// <summary>
+        ///     --download-sections
+        /// </summary>
+        public string DownloadSections
+        {
+            get => this.downloadSections.Value;
+            set => this.SetField(ref this.downloadSections.Value, value);
         }
     }
 }
