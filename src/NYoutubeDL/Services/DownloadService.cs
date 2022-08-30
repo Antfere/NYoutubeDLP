@@ -53,11 +53,6 @@ namespace NYoutubeDL.Services
                 Cancel(ydl);
             });
 
-            if (!ydl.isGettingInfo)
-            {
-                ydl.IsDownloading = true;
-            }
-
             if (ydl.processStartInfo == null)
             {
                 ydl.isGettingInfo = true;
@@ -97,11 +92,6 @@ namespace NYoutubeDL.Services
             {
                 Cancel(ydl);
             });
-
-            if (!ydl.isGettingInfo)
-            {
-                ydl.IsDownloading = true;
-            }
 
             if (ydl.processStartInfo == null)
             {
@@ -191,6 +181,7 @@ namespace NYoutubeDL.Services
             }
 
             ydl.process.Start();
+            ydl.IsDownloading = true;
             ydl.downloadProcessID = ydl.process.Id;
         }
 
