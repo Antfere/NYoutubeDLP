@@ -23,6 +23,10 @@ namespace NYoutubeDL.Tests
     #region Using
 
     using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.IO;
+    using System.Linq;
     using System.Text.RegularExpressions;
     using Helpers;
     using Models;
@@ -207,6 +211,69 @@ namespace NYoutubeDL.Tests
             youtubeDl.Download();
 
             Assert.NotNull(youtubeDl.Info);
+        }
+
+        [Theory]
+        [InlineData("https://www.youtube.com/watch?v=dQw4w9WgXcQ")] // Standard YT video 
+        [InlineData("https://www.youtube.com/watch?v=jfKfPfyJRdk")] // YT livestream 
+        [InlineData("https://www.twitch.tv/monstercat")] // Twitch livestream 
+        public void TestCancelAsyncDownload(string url)
+        {
+            const string outDir = "./out/";
+            TimeSpan timeout = TimeSpan.FromSeconds(30);
+
+            // Clean up after previous run if it failed
+            List<Process> oldProcesses = Process.GetProcessesByName("yt-dlp").ToList();
+            oldProcesses.AddRange(Process.GetProcessesByName("ffmpeg"));
+            if (oldProcesses.Any())
+                foreach (Process process in oldProcesses)
+                    process.Kill();
+
+            if (Directory.Exists(outDir))
+                Directory.Delete(outDir, true);
+
+            // Setup
+            YoutubeDLP youtubeDl = new YoutubeDLP();
+            youtubeDl.VideoUrl = url;
+            youtubeDl.Options.FilesystemOptions.Output = Path.Join(outDir, "video");
+            Directory.CreateDirectory(outDir);
+
+            // Make sure we don't have anything downloading already
+            Assert.Empty(Process.GetProcessesByName("yt-dlp"));
+            Assert.Empty(Process.GetProcessesByName("ffmpeg"));
+
+            // Start download
+            youtubeDl.DownloadAsync();
+            DateTime start = DateTime.Now;
+
+            // Wait for download process to start
+            while (youtubeDl.IsDownloading == false && DateTime.Now - start < timeout) {}
+            // There's still a delay before the download actually starts
+            while (Directory.GetFiles(outDir).Any(f => f.Contains(".part")) == false && DateTime.Now - start < timeout) {}
+            TimeSpan elapsed = DateTime.Now - start;
+            Assert.True(elapsed < timeout, "Download timed out");
+
+            // Should have 2 processes, one wrapper process (see here: https://github.com/yt-dlp/yt-dlp/issues/661), and the actual download one
+            Assert.Equal(2, Process.GetProcessesByName("yt-dlp").Length);
+
+            youtubeDl.CancelDownload();
+
+            // Shouldn't have any more download processes 
+            Assert.Empty(Process.GetProcessesByName("yt-dlp"));
+            Assert.Empty(Process.GetProcessesByName("ffmpeg"));
+
+            // Cleanup 
+            try
+            {
+                List<Process> processes = Process.GetProcessesByName("yt-dlp").ToList();
+                processes.AddRange(Process.GetProcessesByName("ffmpeg"));
+                if (processes.Any())
+                    foreach (Process process in processes)
+                        process.Kill();
+
+                Directory.Delete(outDir, true);
+            }
+            catch { /* ignored */ }
         }
     }
 }
